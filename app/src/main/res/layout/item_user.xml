@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_photo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:src="@drawable/default_avatar" />
+
+    <TextView
+        android:id="@+id/user_name"
+        style="@style/TextAppearance.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/user_photo"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/user_photo"
+        tools:text="@string/default_name" />
+
+    <TextView
+        android:id="@+id/user_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_name"
+        android:layout_alignStart="@+id/user_name"
+        android:layout_marginTop="5dp"
+        android:textSize="@dimen/item_message_message_size"
+        tools:text="@string/default_status" />
+
+    <ImageView
+        android:id="@+id/status_icon"
+        android:layout_width="8dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/user_photo"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/user_name"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/status_icon" />
+
+</RelativeLayout>

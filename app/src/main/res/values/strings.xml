@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name" translatable="false">Eja Shkojmë</string>
+    <string name="title_activity_main" translatable="false">Eja Shkojme</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Test user</string>
+    <string name="nav_header_subtitle" translatable="false">testuser@gmail.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="action_settings">Account Settings</string>
+    <string name="action_logout">Log Out</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_forum">Forum</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_ride" translatable="false">Ride</string>
+
+    <!--In Driver & Customer Login-->
+    <string name="hint_email">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="err_msg_email">Enter valid email address</string>
+    <string name="err_msg_password">Enter the password</string>
+    <string name="hint_firstname">First Name</string>
+    <string name="hint_lastname">Last Name</string>
+    <string name="err_msg_firstname">Enter first name</string>
+    <string name="err_msg_lastname">Enter last name</string>
+    <string name="login_button">SIGN IN</string>
+    <string name="signup_button">SIGN UP</string>
+    <string name="signin_text">Already have an account? &#160;</string>
+    <string name="signin_button">Sign In</string>
+    <string name="registration_text">Don\'t have an account? &#160;</string>
+    <string name="registration_button">Sign Up</string>
+    <string name="title_activity_driver_map">Map</string>
+
+    <string name="heading_recent">Recent</string>
+    <string name="heading_my_posts">My Posts</string>
+    <string name="heading_my_top_posts">My Top Posts</string>
+    <string name="lorem" translatable="false">Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Aenean nec condimentum ante,
+        quis mattis mi. Proin ut rhoncus libero, ac euismod neque.
+        Ut suscipit, enim a facilisis consequat, orci lacus venenatis orci,
+        at ultricies orci nulla sed ex. In condimentum viverra velit,
+        eget feugiat libero imperdiet vel.
+        Aenean pretium, lectus vitae bibendum bibendum,
+        diam turpis convallis eros, quis tristique leo sapien at ipsum.
+        Praesent eu odio id nulla lobortis auctor.
+        Donec eget dolor eget nisl euismod commodo vel a lacus.
+        Quisque ut justo vitae urna pharetra accumsan.
+        Etiam dignissim neque iaculis mauris viverra, blandit rhoncus odio porttitor.
+        Phasellus nibh arcu.</string>
+
+    <!--In new post fragment-->
+    <string name="hint_title">Title</string>
+    <string name="hint_body">Write your post here</string>
+    <string name="err_msg_title">Enter title</string>
+    <string name="err_msg_body">Enter body</string>
+
+    <!--In post detail fragment-->
+    <string name="hint_post_detail">Write a comment</string>
+    <string name="err_msg_post_detail">Enter comment</string>
+    <string name="post_text" translatable="false">Post</string>
+
+    <string name="hint_pickdate">Date</string>
+    <string name="hint_picktime">Time</string>
+    <string name="err_msg_date">Choose date</string>
+    <string name="err_msg_time">Choose time</string>
+
+    <string name="hint_pickorigin">Origin</string>
+    <string name="hint_pickdestination">Destination</string>
+    <string name="err_msg_origin">Enter Address, City or Zip Code</string>
+    <string name="err_msg_destination">Enter Address, City or Zip Code</string>
+
+    <string name="action_profile">Open Profile</string>
+    <string name="action_chat">Send Message</string>
+    <string name="action_ride">Start Ride</string>
+
+    <!--    Permissions    -->
+    <string name="location_permission_denied" translatable="false" />
+    <string name="permission_required_toast" translatable="false" />
+    <string name="permission_rationale_location" translatable="false" />
+
+    <string name="heading_conversation">Chats</string>
+    <string name="heading_friends">Friends</string>
+
+    <string name="settings_name">Display Name</string>
+    <string name="status_button">Change Status</string>
+    <string name="image_button">Change Image</string>
+
+    <string name="default_status">Hi, let\'s go somewhere?</string>
+    <string name="hint_status">Your Status</string>
+    <string name="err_msg_status">Enter status</string>
+    <string name="save_status_button">Save Changes</string>
+    <string name="profile_display_name">Display Name</string>
+    <string name="current_user_status">Current User Status</string>
+    <string name="friends_days">You have just become friends</string>
+    <string name="decline_req_text">Decline Friend Request</string>
+    <string name="accept_req_text">Accept Friend Request</string>
+    <string name="cancel_req_text">Cancel Friend Request</string>
+    <string name="send_req_text">Send Friend Request</string>
+    <string name="unfriend_text">Unfriend this person</string>
+
+    <string name="hint_chatbox">Enter message</string>
+    <string name="default_message">hi man, how are you?</string>
+    <string name="default_time">11:40</string>
+    <string name="default_name">John Doe</string>
+    <string name="default_comment">This is the comment text..</string>
+    <string name="last_seen_text">Last seen just now</string>
+    <string name="default_map_text">Enter Pickup Location</string>
+    <string name="go_button_text">GO</string>
+    <string name="default_pickup_name">Pickup John Joe</string>
+    <string name="default_meet_name">Meet John Joe</string>
+    <string name="default_meet_address">Meet at 5th St</string>
+    <string name="online" translatable="false">Online</string>
+
+</resources>
