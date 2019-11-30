@@ -13,7 +13,10 @@
 [![](https://img.shields.io/github/languages/top/460N1/Eja-Shkojme.svg)](https://developer.android.com/kotlin)
 [![](https://img.shields.io/github/release-date/460N1/Eja-Shkojme.svg?kill_cache=1)](https://github.com/460N1/Eja-Shkojme/releases)
 
-Ky punim eshte krijuar per Teme te Diplomes ne lenden Programimi i Pajisjeve Mobile
+Ky punim eshte krijuar per Teme te Diplomes ne lenden Programimi i Pajisjeve Mobile:
+
 Tema: Aplikacion per menaxhim te bashkeudhetimit me taksi
+
 Mentori: Blerim Rexha
+
 Autori: Agon Hoxha
