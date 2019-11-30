@@ -2,6 +2,7 @@ package com.a60n1.ejashkojme;
 
 import android.Manifest;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -72,7 +73,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "FieldCanBeLocal"})
 public class DriverMapActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
@@ -103,12 +104,14 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     private AutoCompleteTextView mSearchPickText;
     private TextView mPickupName;
     private CircleImageView mRiderAvatar;
+    @SuppressWarnings("unused")
     private GeoDataClient mGeoDataClient;
 
     private PolylineOptions polylineOptions, blackPolylineOptions;
     private Polyline blackPolyline, greyPolyline;
     private IGoogleAPI mService;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -229,7 +232,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                     "destination=" + destination + "&" +
                     "key=" + getResources().getString(R.string.google_maps_key);
             Log.d(TAG, requestApi); //print URL for debugging
-            mService.getPath(requestApi)
+            Objects.requireNonNull(mService.getPath(requestApi))
                     .enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
@@ -241,6 +244,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                                     JSONObject route = jsonArray.getJSONObject(i);
                                     JSONObject poly = route.getJSONObject("overview_polyline");
                                     String polyline = poly.getString("points");
+                                    //noinspection unchecked
                                     polyLineList = decodePoly(polyline);
                                 }
                                 //Adjusting bounds
@@ -288,6 +292,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
                                 polyLineAnimator.start();
 
+                                //noinspection unused
                                 Marker carMarker = mMap.addMarker(new MarkerOptions().position(currentPosition)
                                         .flat(true)
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.car)));
@@ -338,6 +343,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
             LatLng p = new LatLng((((double) lat / 1E5)),
                     (((double) lng / 1E5)));
+            //noinspection unchecked
             poly.add(p);
         }
 

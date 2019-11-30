@@ -14,12 +14,13 @@ import com.a60n1.ejashkojme.viewholder.ReceivedMessageViewHolder;
 import com.a60n1.ejashkojme.viewholder.SentMessageViewHolder;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-    @SuppressWarnings("FieldCanBeLocal")
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private Context mContext;
     private List<Message> mMessageList;
     private String mUid;
@@ -39,7 +40,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         Message message = mMessageList.get(position);
 
-        if (message.from.equals(mUid)) {
+        if (Objects.requireNonNull(message.from).equals(mUid)) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -48,6 +49,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
@@ -61,6 +63,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                     .inflate(R.layout.item_message_received, parent, false);
             return new ReceivedMessageViewHolder(view);
         }
+        //noinspection ConstantConditions
         return null;
     }
 
