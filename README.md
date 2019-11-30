@@ -1,7 +1,7 @@
 <img src="https://github.com/460N1/Eja-Shkojme/blob/master/logo/130px.png">
 
 
-# Eja Shkojme - Tema e Diplomes
+# Eja Shkojmë - Tema e Diplomës
 
 [![](https://img.shields.io/badge/Author-Agon%20Hoxha-black.svg)](https://www.github.com/460N1/)
 ![](https://img.shields.io/badge/Deadline-20/12/2019-yellow.svg) ![](https://img.shields.io/badge/Status-In_Progress-cream.svg)
@@ -13,9 +13,9 @@
 [![](https://img.shields.io/github/languages/top/460N1/Eja-Shkojme.svg)](https://developer.android.com/kotlin)
 [![](https://img.shields.io/github/release-date/460N1/Eja-Shkojme.svg?kill_cache=1)](https://github.com/460N1/Eja-Shkojme/releases)
 
-Ky punim eshte krijuar per Teme te Diplomes ne lenden Programimi i Pajisjeve Mobile:
+Ky punim është krijuar për Temë të Diplomës në lëndën Programimi i Pajisjeve Mobile
 
-Tema: Aplikacion per menaxhim te bashkeudhetimit me taksi
+Tema: Aplikacion për menaxhim të bashkëudhëtimit me taksi
 
 Mentori: Blerim Rexha
 
