@@ -109,5 +109,6 @@
     <string name="default_meet_name">Meet John Joe</string>
     <string name="default_meet_address">Meet at 5th St</string>
     <string name="online" translatable="false">Online</string>
+    <string name="account_status">Account Status</string>
 
 </resources>
