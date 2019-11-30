@@ -130,7 +130,7 @@ public class ConversationFragment extends BaseFragment {
                             chatIntent.putExtra("user_name", name);
                             startActivity(chatIntent);
                         });
-                        if (!Objects.requireNonNull(thumbnail).equals("default")) {
+                        if (!Objects.requireNonNull(thumbnail).equals("default"))
                             Picasso.get().load(thumbnail).networkPolicy(NetworkPolicy.OFFLINE)
                                     .placeholder(R.drawable.default_avatar).into(holder.userAvatar, new Callback() {
                                 @Override
@@ -143,9 +143,8 @@ public class ConversationFragment extends BaseFragment {
                                     Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar);
                                 }
                             });
-                        } else {
+                        else
                             Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar);
-                        }
                     }
 
                     @Override
@@ -168,17 +167,15 @@ public class ConversationFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter.startListening();
-        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter.stopListening();
-        }
     }
 
 }

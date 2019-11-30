@@ -144,9 +144,8 @@ public class FriendsFragment extends BaseFragment {
                                                 Map rideMap = new HashMap();
                                                 rideMap.put("rides/" + list_user_id + "/" + ridesId, ride);
                                                 mDatabase.updateChildren(rideMap, (databaseError, databaseReference) -> {
-                                                    if (databaseError != null) {
+                                                    if (databaseError != null)
                                                         Toast.makeText(getContext(), "Error starting ride", Toast.LENGTH_SHORT).show();
-                                                    }
                                                 });
                                                 startActivity(driverMapIntent);
                                             }
@@ -162,7 +161,7 @@ public class FriendsFragment extends BaseFragment {
                             });
                             popup.show();
                         });
-                        if (!thumbnail.equals("default")) {
+                        if (!thumbnail.equals("default"))
                             Picasso.get().load(thumbnail).networkPolicy(NetworkPolicy.OFFLINE)
                                     .placeholder(R.drawable.default_avatar).into(holder.userAvatar, new Callback() {
                                 @Override
@@ -175,9 +174,8 @@ public class FriendsFragment extends BaseFragment {
                                     Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar);
                                 }
                             });
-                        } else {
+                        else
                             Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar);
-                        }
                     }
 
                     @Override
@@ -200,17 +198,15 @@ public class FriendsFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter.startListening();
-        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter.stopListening();
-        }
     }
 
     private Query getQuery(DatabaseReference databaseReference) {

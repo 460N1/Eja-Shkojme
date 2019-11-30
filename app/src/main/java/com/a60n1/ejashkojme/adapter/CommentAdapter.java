@@ -76,9 +76,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
                     // Update the RecyclerView
                     notifyItemChanged(commentIndex);
-                } else {
+                } else
                     Log.w(TAG, "onChildChanged:unknown_child:" + commentKey);
-                }
             }
 
             @Override
@@ -97,9 +96,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
                     // Update the RecyclerView
                     notifyItemRemoved(commentIndex);
-                } else {
+                } else
                     Log.w(TAG, "onChildRemoved:unknown_child:" + commentKey);
-                }
             }
 
             @Override
@@ -159,16 +157,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if (user == null) {
+                if (user == null)
                     return;
-                }
                 final String thumb_image = user.thumb_image;
                 if (!thumb_image.equals("default")) {
                     Picasso.get().load(thumb_image).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.default_avatar).into(holder.authorAvatar, new Callback() {
                         @Override
                         public void onSuccess() {
-
                         }
 
                         @Override
@@ -176,9 +172,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
                             Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(holder.authorAvatar);
                         }
                     });
-                } else {
+                } else
                     Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(holder.authorAvatar);
-                }
             }
 
             @Override
@@ -194,9 +189,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     }
 
     public void cleanupListener() {
-        if (mChildEventListener != null) {
+        if (mChildEventListener != null)
             mDatabaseReference.removeEventListener(mChildEventListener);
-        }
     }
 
 }

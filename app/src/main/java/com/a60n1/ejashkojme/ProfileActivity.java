@@ -67,7 +67,7 @@ public class ProfileActivity extends BaseActivity {
                 mName.setText(name);
                 mStatus.setText(status);
 
-                if (!Objects.requireNonNull(image).equals("default")) {
+                if (!Objects.requireNonNull(image).equals("default"))
                     Picasso.get().load(image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_avatar).into(mProfileImage, new Callback() {
                         @Override
                         public void onSuccess() {
@@ -78,9 +78,8 @@ public class ProfileActivity extends BaseActivity {
                             Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
                         }
                     });
-                } else {
+                else
                     Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
-                }
                 if (getUid().equals(user_id)) {
                     mDays.setVisibility(View.INVISIBLE);
                     mDeclineButton.setEnabled(false);
@@ -109,7 +108,7 @@ public class ProfileActivity extends BaseActivity {
                                 mDeclineButton.setEnabled(false);
                             }
                             hideProgressDialog();
-                        } else {
+                        } else
                             mFriendDatabase.child(getUid()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -130,7 +129,6 @@ public class ProfileActivity extends BaseActivity {
                                     hideProgressDialog();
                                 }
                             });
-                        }
                     }
 
                     @Override
@@ -159,9 +157,9 @@ public class ProfileActivity extends BaseActivity {
                 requestMap.put("friend_req/" + user_id + "/" + getUid() + "/request_type", "received");
                 requestMap.put("notifications/" + user_id + "/" + notificationId, notification);
                 mDatabase.updateChildren(requestMap, (databaseError, databaseReference) -> {
-                    if (databaseError != null) {
+                    if (databaseError != null)
                         Toast.makeText(ProfileActivity.this, "Error sending request", Toast.LENGTH_SHORT).show();
-                    } else {
+                    else {
                         currentState = "req_sent";
                         mSendReqButton.setText(R.string.cancel_req_text);
                     }
@@ -169,7 +167,7 @@ public class ProfileActivity extends BaseActivity {
                 });
             }
             // sent request state
-            if (currentState.equals("req_sent")) {
+            if (currentState.equals("req_sent"))
                 mFriendReqDatabase.child(getUid()).child(user_id).removeValue().addOnSuccessListener(aVoid -> mFriendReqDatabase.child(user_id).child(getUid()).removeValue().addOnSuccessListener(aVoid1 -> {
                     mSendReqButton.setEnabled(true);
                     currentState = "not_friends";
@@ -178,7 +176,6 @@ public class ProfileActivity extends BaseActivity {
                     mDeclineButton.setVisibility(View.INVISIBLE);
                     mDeclineButton.setEnabled(false);
                 }));
-            }
             // received request state
             if (currentState.equals("req_received")) {
                 @SuppressLint("SimpleDateFormat") final String currentDate = new SimpleDateFormat("M/dd/yyyy").format(new Date());

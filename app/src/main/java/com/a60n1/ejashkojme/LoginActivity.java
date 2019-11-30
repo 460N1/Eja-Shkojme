@@ -80,13 +80,11 @@ public class LoginActivity extends BaseActivity {
      * Validating form inputs
      */
     private void submitLoginInfo() {
-        if (!validateEmail()) {
+        if (!validateEmail())
             return;
-        }
 
-        if (!validatePassword()) {
+        if (!validatePassword())
             return;
-        }
 
         showProgressDialog();
         // after validated info
@@ -103,9 +101,8 @@ public class LoginActivity extends BaseActivity {
                             startActivity(intent);
                             finish();
                         });
-            } else {
+            } else
                 Toast.makeText(LoginActivity.this, "Error logging in", Toast.LENGTH_SHORT).show();
-            }
         });
     }
 
@@ -116,9 +113,8 @@ public class LoginActivity extends BaseActivity {
             mLayoutEmail.setError(getString(R.string.err_msg_email));
             requestFocus(mEmail);
             return false;
-        } else {
+        } else
             mLayoutEmail.setErrorEnabled(false);
-        }
 
         return true;
     }
@@ -128,16 +124,14 @@ public class LoginActivity extends BaseActivity {
             mLayoutPassword.setError(getString(R.string.err_msg_password));
             requestFocus(mPassword);
             return false;
-        } else {
+        } else
             mLayoutPassword.setErrorEnabled(false);
-        }
         return true;
     }
 
     private void requestFocus(View view) {
-        if (view.requestFocus()) {
+        if (view.requestFocus())
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
     }
 
     private class MyTextWatcher implements TextWatcher {

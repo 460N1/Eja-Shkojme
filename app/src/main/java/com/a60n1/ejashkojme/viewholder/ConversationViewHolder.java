@@ -34,18 +34,16 @@ public class ConversationViewHolder extends RecyclerView.ViewHolder {
         statusView.setText(message.message);
         timestampView.setText(TimeUtils.getLastMessageTime(message.timestamp));
 
-        if (!seen) {
+        if (!seen)
             statusView.setTypeface(statusView.getTypeface(), Typeface.BOLD);
-        } else {
+        else
             statusView.setTypeface(statusView.getTypeface(), Typeface.NORMAL);
-        }
     }
 
     public void setUserStatus(String status) {
-        if (status.equals("true")) {
+        if (status.equals("true"))
             statusIcon.setVisibility(View.VISIBLE);
-        } else {
+        else
             statusIcon.setVisibility(View.INVISIBLE);
-        }
     }
 }

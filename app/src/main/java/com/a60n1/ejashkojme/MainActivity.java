@@ -102,9 +102,8 @@ public class MainActivity extends BaseActivity
         mNavigationView.setCheckedItem(R.id.nav_forum);
 
         if (findViewById(R.id.flContent) != null) {
-            if (savedInstanceState != null) {
+            if (savedInstanceState != null)
                 return;
-            }
             ForumFragment fragment = ForumFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.flContent, fragment).commit();
@@ -134,7 +133,7 @@ public class MainActivity extends BaseActivity
                     mName.setText(user.name);
                     mEmail.setText(user.email);
                     final String thumb_image = user.thumb_image;
-                    if (!thumb_image.equals("default")) {
+                    if (!thumb_image.equals("default"))
                         Picasso.get().load(thumb_image).networkPolicy(NetworkPolicy.OFFLINE)
                                 .placeholder(R.drawable.default_avatar).into(mAvatar, new Callback() {
                             @Override
@@ -147,9 +146,8 @@ public class MainActivity extends BaseActivity
                                 Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(mAvatar);
                             }
                         });
-                    } else {
+                    else
                         Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(mAvatar);
-                    }
                 }
             }
 
@@ -165,19 +163,17 @@ public class MainActivity extends BaseActivity
     protected void onStart() {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        if (user != null)
             mUserDatabase.child("online").setValue("true");
-        }
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START))
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        else
             onReturnBtnClicked();
-        }
     }
 
     @Override
@@ -256,9 +252,8 @@ public class MainActivity extends BaseActivity
     }
 
     public void onReturnBtnClicked() {
-        if (Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.flContent)).getClass() == ForumFragment.class) {
+        if (Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.flContent)).getClass() == ForumFragment.class)
             return;
-        }
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.flContent, ForumFragment.newInstance()).commit();
         hideKeyboard();
@@ -310,9 +305,8 @@ public class MainActivity extends BaseActivity
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
                 return;
-            }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
         }
@@ -326,18 +320,16 @@ public class MainActivity extends BaseActivity
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 mLocationPermissionsGranted = true;
-            } else {
+            else
                 ActivityCompat.requestPermissions(this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
-            }
-        } else {
+        } else
             ActivityCompat.requestPermissions(this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
-        }
     }
 
     @Override
@@ -345,18 +337,16 @@ public class MainActivity extends BaseActivity
         Log.d(TAG, "onRequestPermissionsResult: called.");
         mLocationPermissionsGranted = false;
 
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE)
             if (grantResults.length > 0) {
-                for (int grantResult : grantResults) {
+                for (int grantResult : grantResults)
                     if (grantResult != PackageManager.PERMISSION_GRANTED) {
                         mLocationPermissionsGranted = false;
                         Log.d(TAG, "onRequestPermissionsResult: permission failed");
                         return;
                     }
-                }
                 Log.d(TAG, "onRequestPermissionsResult: permission granted");
                 mLocationPermissionsGranted = true;
             }
-        }
     }
 }

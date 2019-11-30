@@ -92,9 +92,9 @@ public class ChatActivity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String online = dataSnapshot.child("online").getValue(String.class);
-                if (Objects.equals(online, "true")) {
+                if (Objects.equals(online, "true"))
                     mLastSeen.setText(R.string.online);
-                } else {
+                else {
                     long lastTime = Long.parseLong(Objects.requireNonNull(online));
                     mLastSeen.setText(TimeUtils.getLastSeenTime(lastTime));
                 }
@@ -130,9 +130,8 @@ public class ChatActivity extends BaseActivity {
         });
 
         mMessageRecycler.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-            if (bottom < oldBottom && Objects.requireNonNull(mMessageRecycler.getAdapter()).getItemCount() > 0) {
+            if (bottom < oldBottom && Objects.requireNonNull(mMessageRecycler.getAdapter()).getItemCount() > 0)
                 mMessageRecycler.postDelayed(() -> mMessageRecycler.smoothScrollToPosition(mMessageRecycler.getAdapter().getItemCount() - 1), 100);
-            }
         });
 
         mSendButton = findViewById(R.id.button_chatbox_send);
@@ -211,9 +210,8 @@ public class ChatActivity extends BaseActivity {
             mDatabase.child("chat").child(mChatUser).child(getUid()).child("timestamp").setValue(ServerValue.TIMESTAMP);
 
             mDatabase.updateChildren(messageUserMap, (databaseError, databaseReference) -> {
-                if (databaseError != null) {
+                if (databaseError != null)
                     Log.d(TAG, databaseError.getMessage());
-                }
             });
         }
     }

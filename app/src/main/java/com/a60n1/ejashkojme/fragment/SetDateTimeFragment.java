@@ -74,13 +74,11 @@ public class SetDateTimeFragment extends BaseFragment {
     }
 
     private void goToNext() {
-        if (!validateDate()) {
+        if (!validateDate())
             return;
-        }
 
-        if (!validateTime()) {
+        if (!validateTime())
             return;
-        }
 
         final String date = mPickDateText.getText().toString();
         final String time = mPickTimeText.getText().toString();
@@ -93,9 +91,8 @@ public class SetDateTimeFragment extends BaseFragment {
         if (date.isEmpty()) {
             mLayoutDate.setError(getString(R.string.err_msg_date));
             return false;
-        } else {
+        } else
             mLayoutDate.setErrorEnabled(false);
-        }
         return true;
     }
 
@@ -105,9 +102,8 @@ public class SetDateTimeFragment extends BaseFragment {
         if (time.isEmpty()) {
             mLayoutTime.setError(getString(R.string.err_msg_time));
             return false;
-        } else {
+        } else
             mLayoutTime.setErrorEnabled(false);
-        }
         return true;
     }
 

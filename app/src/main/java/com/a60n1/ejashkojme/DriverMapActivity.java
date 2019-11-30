@@ -72,9 +72,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// import com.a60n1.ejashkojme.adapter.PlaceAutocompleteAdapter;
-
-
 public class DriverMapActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
@@ -131,7 +128,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
         if (name != null && thumb_image != null) {
             mPickupName.setText("Pickup " + name);
-            if (!thumb_image.equals("default")) {
+            if (!thumb_image.equals("default"))
                 Picasso.get().load(thumb_image).networkPolicy(NetworkPolicy.OFFLINE)
                         .placeholder(R.drawable.default_avatar).into(mRiderAvatar, new com.squareup.picasso.Callback() {
                     @Override
@@ -144,18 +141,16 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                         Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(mRiderAvatar);
                     }
                 });
-            } else {
+            else
                 Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(mRiderAvatar);
-            }
         } else {
             CardView cardView = findViewById(R.id.driver_pickup_view);
             cardView.setVisibility(View.GONE);
         }
 
         mUserPostsDatabase = FirebaseDatabase.getInstance().getReference().child("user-posts");
-        if (mRiderId != null) {
+        if (mRiderId != null)
             mSearchPickText.setText(origin);
-        }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mGeoDataClient = Places.getGeoDataClient(this, null);
@@ -187,10 +182,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     protected void onStop() {
         super.onStop();
         stopLocationUpdate();
-        if (mCurrent != null) {
+        if (mCurrent != null)
             mCurrent.remove();
-        }
-
     }
 
     @Override
@@ -218,9 +211,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     private void getDirection(String destination) {
-        if (mLastLocation == null) {
+        if (mLastLocation == null)
             return;
-        }
         currentPosition = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
         String requestApi;
@@ -298,7 +290,6 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-
                         }
 
                         @Override
@@ -343,7 +334,6 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                     (((double) lng / 1E5)));
             poly.add(p);
         }
-
         return poly;
     }
 
@@ -389,9 +379,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
     private void stopLocationUpdate() {
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED)
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-        }
     }
 
     private void displayLocation() {
@@ -410,16 +399,14 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15.0f));
 
             });
-        } else {
+        } else
             Log.d("Error", "Cannot get your location");
-        }
     }
 
     private void startLocationUpdate() {
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED)
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-        }
     }
 
 
@@ -460,10 +447,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
     private void enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED)
             mMap.setMyLocationEnabled(true);
-        }  // Show rationale and request permission.
-
     }
 
     @Override
@@ -482,15 +467,13 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE)
             return;
-        }
 
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Manifest.permission.ACCESS_FINE_LOCATION))
             // Enable the my location layer if the permission has been granted.
             enableMyLocation();
-        }
     }
 
     @Override
@@ -502,7 +485,6 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     public void onLocationChanged(Location location) {
         mLastLocation = location;
         displayLocation();
-
     }
 
     @Override
@@ -524,14 +506,10 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     public void onConnected(@Nullable Bundle bundle) {
         startLocationUpdate();
         displayLocation();
-
     }
 
     @Override
     public void onConnectionSuspended(int i) {
         mGoogleApiClient.connect();
-
     }
-
-
 }

@@ -102,9 +102,9 @@ public class SignupActivity extends BaseActivity {
                 .addOnCompleteListener(SignupActivity.this, task -> {
                     hideProgressDialog();
                     //check register is successful
-                    if (!task.isSuccessful()) {
+                    if (!task.isSuccessful())
                         Toast.makeText(SignupActivity.this, "Error signing up", Toast.LENGTH_SHORT).show();
-                    } else {
+                    else {
                         Toast.makeText(SignupActivity.this, "Successfully signed up", Toast.LENGTH_SHORT).show();
                         final String user_id = getUid();
                         final String device_token = FirebaseInstanceId.getInstance().getToken();
@@ -118,9 +118,8 @@ public class SignupActivity extends BaseActivity {
             mLayoutFirstName.setError(getString(R.string.err_msg_firstname));
             requestFocus(mFirstName);
             return false;
-        } else {
+        } else
             mLayoutFirstName.setErrorEnabled(false);
-        }
         return true;
     }
 
@@ -129,9 +128,8 @@ public class SignupActivity extends BaseActivity {
             mLayoutLastName.setError(getString(R.string.err_msg_lastname));
             requestFocus(mLastName);
             return false;
-        } else {
+        } else
             mLayoutLastName.setErrorEnabled(false);
-        }
         return true;
     }
 
@@ -142,9 +140,8 @@ public class SignupActivity extends BaseActivity {
             mLayoutEmail.setError(getString(R.string.err_msg_email));
             requestFocus(mEmail);
             return false;
-        } else {
+        } else
             mLayoutEmail.setErrorEnabled(false);
-        }
         return true;
     }
 
@@ -153,16 +150,14 @@ public class SignupActivity extends BaseActivity {
             mLayoutPassword.setError(getString(R.string.err_msg_password));
             requestFocus(mPassword);
             return false;
-        } else {
+        } else
             mLayoutPassword.setErrorEnabled(false);
-        }
         return true;
     }
 
     private void requestFocus(View view) {
-        if (view.requestFocus()) {
+        if (view.requestFocus())
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
     }
 
     private void writeNewUser(String userId, String name, String email, String device_token) {

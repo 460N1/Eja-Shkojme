@@ -28,8 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-//import com.a60n1.ejashkojme.adapter.PlaceAutocompleteAdapter;
-
 public class SetPickPointFragment extends BaseFragment {
 
     private static final String TAG = "SetPickPointFragment";
@@ -37,7 +35,6 @@ public class SetPickPointFragment extends BaseFragment {
     private GeoDataClient mGeoDataClient;
     private AutoCompleteTextView mSearchOriginText, mSearchDestinationText;
     private TextInputLayout mLayoutOrigin, mLayoutDestination;
-    // private PlaceAutocompleteAdapter mAdapter;
     private FloatingActionButton mSubmitButton;
 
     private DatabaseReference mDatabase;
@@ -77,13 +74,11 @@ public class SetPickPointFragment extends BaseFragment {
     }
 
     private void submitPost() {
-        if (!validateOrigin()) {
+        if (!validateOrigin())
             return;
-        }
 
-        if (!validateDestination()) {
+        if (!validateDestination())
             return;
-        }
 
         final String origin = mSearchOriginText.getText().toString();
         final String destination = mSearchDestinationText.getText().toString();
@@ -106,10 +101,9 @@ public class SetPickPointFragment extends BaseFragment {
                             Toast.makeText(getActivity(),
                                     "Error: could not fetch user.",
                                     Toast.LENGTH_SHORT).show();
-                        } else {
+                        } else
                             // Write new post
                             writeNewPost(userId, user.name, mainActivity.getCurrentTitle(), mainActivity.getCurrentBody(), mainActivity.getCurrentDate(), mainActivity.getCurrentTime(), origin, destination);
-                        }
 
                         // Finish this Activity, back to the stream
                         setEditingEnabled(true);
@@ -128,11 +122,10 @@ public class SetPickPointFragment extends BaseFragment {
     private void setEditingEnabled(boolean enabled) {
         mSearchOriginText.setEnabled(enabled);
         mSearchDestinationText.setEnabled(enabled);
-        if (enabled) {
+        if (enabled)
             mSubmitButton.setVisibility(View.VISIBLE);
-        } else {
+        else
             mSubmitButton.setVisibility(View.GONE);
-        }
     }
 
     private void writeNewPost(String userId, String author, String title, String body, String date, String time, String origin, String destination) {
@@ -154,9 +147,8 @@ public class SetPickPointFragment extends BaseFragment {
         if (origin.isEmpty()) {
             mLayoutOrigin.setError(getString(R.string.err_msg_origin));
             return false;
-        } else {
+        } else
             mLayoutOrigin.setErrorEnabled(false);
-        }
         return true;
     }
 
@@ -166,9 +158,8 @@ public class SetPickPointFragment extends BaseFragment {
         if (destination.isEmpty()) {
             mLayoutDestination.setError(getString(R.string.err_msg_destination));
             return false;
-        } else {
+        } else
             mLayoutDestination.setErrorEnabled(false);
-        }
         return true;
     }
 

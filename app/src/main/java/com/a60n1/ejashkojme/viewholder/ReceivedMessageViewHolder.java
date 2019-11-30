@@ -46,11 +46,10 @@ public class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if (user == null) {
+                if (user == null)
                     return;
-                }
                 final String thumbnail = user.thumb_image;
-                if (!thumbnail.equals("default")) {
+                if (!thumbnail.equals("default"))
                     Picasso.get().load(thumbnail).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.default_avatar).into(profileAvatar, new Callback() {
                         @Override
@@ -63,9 +62,8 @@ public class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
                             Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(profileAvatar);
                         }
                     });
-                } else {
+                else
                     Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(profileAvatar);
-                }
             }
 
             @Override

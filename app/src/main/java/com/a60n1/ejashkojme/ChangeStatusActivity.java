@@ -54,9 +54,8 @@ public class ChangeStatusActivity extends BaseActivity {
     }
 
     public void changeStatus() {
-        if (!validateStatus()) {
+        if (!validateStatus())
             return;
-        }
 
         mProgress = new ProgressDialog(ChangeStatusActivity.this);
         mProgress.setTitle("Saving changes...");
@@ -65,11 +64,10 @@ public class ChangeStatusActivity extends BaseActivity {
         final String status = mStatus.getText().toString();
         String user_id = getUid();
         mDatabase.child("users").child(user_id).child("status").setValue(status).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+            if (task.isSuccessful())
                 mProgress.dismiss();
-            } else {
+            else
                 Toast.makeText(ChangeStatusActivity.this, "Error saving changes", Toast.LENGTH_SHORT).show();
-            }
         });
     }
 
@@ -80,16 +78,14 @@ public class ChangeStatusActivity extends BaseActivity {
             mLayoutStatus.setError(getString(R.string.err_msg_status));
             requestFocus(mStatus);
             return false;
-        } else {
+        } else
             mLayoutStatus.setErrorEnabled(false);
-        }
         return true;
     }
 
     private void requestFocus(View view) {
-        if (view.requestFocus()) {
+        if (view.requestFocus())
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
     }
 
     private class MyTextWatcher implements TextWatcher {
@@ -106,9 +102,8 @@ public class ChangeStatusActivity extends BaseActivity {
         }
 
         public void afterTextChanged(Editable editable) {
-            if (view.getId() == R.id.status_input) {
+            if (view.getId() == R.id.status_input)
                 validateStatus();
-            }
         }
     }
 }
