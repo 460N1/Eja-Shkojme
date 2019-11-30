@@ -116,12 +116,12 @@ public class ConversationFragment extends BaseFragment {
                 mUserDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        final String name = dataSnapshot.child("name").getValue(String.class);
-                        final String thumbnail = dataSnapshot.child("thumb_image").getValue(String.class);
+                        final String name = dataSnapshot.child("name").getValue().toString();
+                        final String thumbnail = dataSnapshot.child("thumb_image").getValue().toString();
 
                         holder.nameView.setText(name);
                         if (dataSnapshot.hasChild("online")) {
-                            String userOnline = dataSnapshot.child("online").getValue(String.class);
+                            String userOnline = Objects.requireNonNull(dataSnapshot.child("online").getValue()).toString();
                             holder.setUserStatus(Objects.requireNonNull(userOnline));
                         }
                         holder.mView.setOnClickListener(v -> {
@@ -130,7 +130,7 @@ public class ConversationFragment extends BaseFragment {
                             chatIntent.putExtra("user_name", name);
                             startActivity(chatIntent);
                         });
-                        if (!Objects.requireNonNull(thumbnail).equals("default"))
+                        if (!Objects.requireNonNull(thumbnail).equals("default")) {
                             Picasso.get().load(thumbnail).networkPolicy(NetworkPolicy.OFFLINE)
                                     .placeholder(R.drawable.default_avatar).into(holder.userAvatar, new Callback() {
                                 @Override
@@ -143,8 +143,9 @@ public class ConversationFragment extends BaseFragment {
                                     Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar);
                                 }
                             });
-                        else
+                        } else {
                             Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar);
+                        }
                     }
 
                     @Override
@@ -167,15 +168,17 @@ public class ConversationFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (mAdapter != null)
+        if (mAdapter != null) {
             mAdapter.startListening();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAdapter != null)
+        if (mAdapter != null) {
             mAdapter.stopListening();
+        }
     }
 
 }

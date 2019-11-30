@@ -54,11 +54,13 @@ public class NewPostFragment extends BaseFragment {
     }
 
     private void goToNext() {
-        if (!validateTitle())
+        if (!validateTitle()) {
             return;
+        }
 
-        if (!validateBody())
+        if (!validateBody()) {
             return;
+        }
 
         final String title = mTitleField.getText().toString();
         final String body = mBodyField.getText().toString();
@@ -73,8 +75,9 @@ public class NewPostFragment extends BaseFragment {
             mLayoutTitle.setError(getString(R.string.err_msg_title));
             requestFocus(mTitleField);
             return false;
-        } else
+        } else {
             mLayoutTitle.setErrorEnabled(false);
+        }
         return true;
     }
 
@@ -85,14 +88,16 @@ public class NewPostFragment extends BaseFragment {
             mLayoutBody.setError(getString(R.string.err_msg_body));
             requestFocus(mBodyField);
             return false;
-        } else
+        } else {
             mLayoutBody.setErrorEnabled(false);
+        }
         return true;
     }
 
     private void requestFocus(View view) {
-        if (view.requestFocus())
+        if (view.requestFocus()) {
             Objects.requireNonNull(getActivity()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 
     private class MyTextWatcher implements TextWatcher {

@@ -97,13 +97,13 @@ public class FriendsFragment extends BaseFragment {
                 mUserDatabase.child(Objects.requireNonNull(list_user_id)).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        final String name = dataSnapshot.child("name").getValue(String.class);
-                        final String thumbnail = dataSnapshot.child("thumb_image").getValue(String.class);
-                        final String status = dataSnapshot.child("status").getValue(String.class);
+                        final String name = dataSnapshot.child("name").getValue().toString();
+                        final String thumbnail = dataSnapshot.child("thumb_image").getValue().toString();
+                        final String status = dataSnapshot.child("status").getValue().toString();
                         holder.statusView.setText(status);
                         holder.nameView.setText(name);
                         if (dataSnapshot.hasChild("online")) {
-                            String userOnline = dataSnapshot.child("online").getValue(String.class);
+                            String userOnline = dataSnapshot.child("online").getValue().toString();
                             holder.setUserStatus(userOnline);
                         }
                         holder.mView.setOnClickListener(v -> {
@@ -144,8 +144,9 @@ public class FriendsFragment extends BaseFragment {
                                                 Map rideMap = new HashMap();
                                                 rideMap.put("rides/" + list_user_id + "/" + ridesId, ride);
                                                 mDatabase.updateChildren(rideMap, (databaseError, databaseReference) -> {
-                                                    if (databaseError != null)
+                                                    if (databaseError != null) {
                                                         Toast.makeText(getContext(), "Error starting ride", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 });
                                                 startActivity(driverMapIntent);
                                             }
@@ -161,7 +162,7 @@ public class FriendsFragment extends BaseFragment {
                             });
                             popup.show();
                         });
-                        if (!thumbnail.equals("default"))
+                        if (!thumbnail.equals("default")) {
                             Picasso.get().load(thumbnail).networkPolicy(NetworkPolicy.OFFLINE)
                                     .placeholder(R.drawable.default_avatar).into(holder.userAvatar, new Callback() {
                                 @Override
@@ -174,8 +175,9 @@ public class FriendsFragment extends BaseFragment {
                                     Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar);
                                 }
                             });
-                        else
+                        } else {
                             Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar);
+                        }
                     }
 
                     @Override
@@ -198,15 +200,17 @@ public class FriendsFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (mAdapter != null)
+        if (mAdapter != null) {
             mAdapter.startListening();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAdapter != null)
+        if (mAdapter != null) {
             mAdapter.stopListening();
+        }
     }
 
     private Query getQuery(DatabaseReference databaseReference) {

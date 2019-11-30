@@ -34,13 +34,14 @@ public class BaseFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             try {
                 mainActivity = (MainActivity) activity;
             } catch (ClassCastException e) {
                 throw new IllegalStateException(activity.getClass().getSimpleName()
                         + " is not MainActivity", e);
             }
+        }
     }
 
     @Override

@@ -95,7 +95,7 @@ public class SettingsActivity extends BaseActivity {
                     mName.setText(user.name);
                     mStatus.setText(user.status);
                     final String image = user.image;
-                    if (!image.equals("default"))
+                    if (!image.equals("default")) {
                         Picasso.get().load(image).networkPolicy(NetworkPolicy.OFFLINE)
                                 .placeholder(R.drawable.default_avatar).into(mAvatar, new Callback() {
                             @Override
@@ -108,8 +108,9 @@ public class SettingsActivity extends BaseActivity {
                                 Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mAvatar);
                             }
                         });
-                    else
+                    } else {
                         Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mAvatar);
+                    }
                 }
             }
 
@@ -163,7 +164,7 @@ public class SettingsActivity extends BaseActivity {
                             image_path.getDownloadUrl().addOnSuccessListener(uri -> download_url = uri.toString());
                             UploadTask uploadTask = thumb_path.putBytes(thumb_byte);
                             uploadTask.addOnCompleteListener(thumb_task -> {
-                                if (thumb_task.isSuccessful())
+                                if (thumb_task.isSuccessful()) {
                                     thumb_path.getDownloadUrl().addOnSuccessListener(uri -> {
                                         thumb_downloadUrl = uri.toString();
                                         Map image_map = new HashMap();
@@ -176,7 +177,7 @@ public class SettingsActivity extends BaseActivity {
                                             }
                                         });
                                     });
-                                else {
+                                } else {
                                     mProgress.dismiss();
                                     Toast.makeText(SettingsActivity.this, "Error uploading thumbnail", Toast.LENGTH_SHORT).show();
                                 }

@@ -23,49 +23,55 @@ public class TimeUtils {
 
     @SuppressLint("SimpleDateFormat")
     public static String getLastMessageTime(long time) {
-        if (time < 1000000000000L)
+        if (time < 1000000000000L) {
             // if timestamp given in seconds, convert to millis
             time *= 1000;
+        }
 
         Calendar calendar = Calendar.getInstance();
         long now = calendar.getTimeInMillis();
-        if (time > now || time <= 0)
+        if (time > now || time <= 0) {
             return null;
+        }
 
         final long diff = now - time;
-        if (diff < 24 * HOUR_MILLIS)
+        if (diff < 24 * HOUR_MILLIS) {
             return new SimpleDateFormat("h:mm a").format(new Date(time));
-        else if (diff < 48 * HOUR_MILLIS)
+        } else if (diff < 48 * HOUR_MILLIS) {
             return "YESTERDAY";
-        else
+        } else {
             return new SimpleDateFormat("M/dd/yyyy").format(new Date(time));
+        }
     }
 
     public static String getLastSeenTime(long time) {
-        if (time < 1000000000000L)
+        if (time < 1000000000000L) {
             // if timestamp given in seconds, convert to millis
             time *= 1000;
+        }
 
         Calendar calendar = Calendar.getInstance();
         long now = calendar.getTimeInMillis();
-        if (time > now || time <= 0)
+        if (time > now || time <= 0) {
             return null;
+        }
 
         final long diff = now - time;
-        if (diff < MINUTE_MILLIS)
+        if (diff < MINUTE_MILLIS) {
             return "Last seen just now";
-        else if (diff < 2 * MINUTE_MILLIS)
+        } else if (diff < 2 * MINUTE_MILLIS) {
             return "Last seen 1 minute ago";
-        else if (diff < 50 * MINUTE_MILLIS)
+        } else if (diff < 50 * MINUTE_MILLIS) {
             return "Last seen " + diff / MINUTE_MILLIS + " minutes ago";
-        else if (diff < 90 * MINUTE_MILLIS)
+        } else if (diff < 90 * MINUTE_MILLIS) {
             return "Last seen 1 hour ago";
-        else if (diff < 24 * HOUR_MILLIS)
+        } else if (diff < 24 * HOUR_MILLIS) {
             return "Last seen " + diff / HOUR_MILLIS + " hours ago";
-        else if (diff < 48 * HOUR_MILLIS)
+        } else if (diff < 48 * HOUR_MILLIS) {
             return "Last seen yesterday";
-        else
+        } else {
             return "Last seen " + diff / DAY_MILLIS + " days ago";
+        }
     }
 
     public static String getDaysSince(String date) {
@@ -73,11 +79,13 @@ public class TimeUtils {
                 DateTimeFormat.forPattern("M/dd/yyyy"));
         DateTime today = new DateTime();
         int days = Days.daysBetween(oldDate, today).getDays();
-        if (days <= 0)
+        if (days <= 0) {
             return "You have just become friends";
-        else if (days == 1)
+        } else if (days == 1) {
             return "You have been friends for 1 day";
-        else
+        } else {
             return "You have been friends for " + days + " days";
+        }
     }
+
 }

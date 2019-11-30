@@ -55,10 +55,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if (user == null)
+                if (user == null) {
                     return;
+                }
                 final String thumb_image = user.thumb_image;
-                if (!thumb_image.equals("default"))
+                if (!thumb_image.equals("default")) {
                     Picasso.get().load(thumb_image).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.default_avatar).into(authorAvatar, new Callback() {
                         @Override
@@ -71,8 +72,9 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                             Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(authorAvatar);
                         }
                     });
-                else
+                } else {
                     Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(authorAvatar);
+                }
             }
 
             @Override

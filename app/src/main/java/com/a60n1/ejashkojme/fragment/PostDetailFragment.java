@@ -130,8 +130,9 @@ public class PostDetailFragment extends BaseFragment implements GoogleApiClient.
         Objects.requireNonNull(mapFragment).getMapAsync(this);
         // Get post key from arguments
         mPostKey = Objects.requireNonNull(getArguments()).getString(EXTRA_POST_KEY);
-        if (mPostKey == null)
+        if (mPostKey == null) {
             throw new IllegalArgumentException("Must pass EXTRA_POST_KEY");
+        }
 
         // Initialize Database
         mPostDatabase = FirebaseDatabase.getInstance().getReference()
@@ -206,10 +207,11 @@ public class PostDetailFragment extends BaseFragment implements GoogleApiClient.
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             User user = dataSnapshot.getValue(User.class);
-                            if (user == null)
+                            if (user == null) {
                                 return;
+                            }
                             final String thumb_image = user.thumb_image;
-                            if (!thumb_image.equals("default"))
+                            if (!thumb_image.equals("default")) {
                                 Picasso.get().load(thumb_image).networkPolicy(NetworkPolicy.OFFLINE)
                                         .placeholder(R.drawable.default_avatar).into(mAuthorAvatar, new Callback() {
                                     @Override
@@ -222,8 +224,9 @@ public class PostDetailFragment extends BaseFragment implements GoogleApiClient.
                                         Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(mAuthorAvatar);
                                     }
                                 });
-                            else
+                            } else {
                                 Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(mAuthorAvatar);
+                            }
                         }
 
                         @Override
@@ -258,8 +261,9 @@ public class PostDetailFragment extends BaseFragment implements GoogleApiClient.
         super.onStop();
 
         // Remove post value event listener
-        if (mPostListener != null)
+        if (mPostListener != null) {
             mPostDatabase.removeEventListener(mPostListener);
+        }
         // Clean up comments listener
         mAdapter.cleanupListener();
     }
@@ -272,12 +276,14 @@ public class PostDetailFragment extends BaseFragment implements GoogleApiClient.
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         // Get user information
                         User user = dataSnapshot.getValue(User.class);
-                        if (user == null)
+                        if (user == null) {
                             return;
+                        }
                         String authorName = user.name;
 
-                        if (!validateComment())
+                        if (!validateComment()) {
                             return;
+                        }
                         // Create new comment object
                         String commentText = mCommentField.getText().toString();
                         Comment comment = new Comment(uid, authorName, commentText);
@@ -302,14 +308,16 @@ public class PostDetailFragment extends BaseFragment implements GoogleApiClient.
             mLayoutCommentField.setError(getString(R.string.err_msg_post_detail));
             requestFocus(mCommentField);
             return false;
-        } else
+        } else {
             mLayoutCommentField.setErrorEnabled(false);
+        }
         return true;
     }
 
     private void requestFocus(View view) {
-        if (view.requestFocus())
+        if (view.requestFocus()) {
             Objects.requireNonNull(getActivity()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 
     @Override
@@ -370,10 +378,11 @@ public class PostDetailFragment extends BaseFragment implements GoogleApiClient.
     //=============================================
     private void enableMyLocation() {
         if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()).getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED)
+                == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-        else
+        } else {
             showMissingPermissionError();
+        }
     }
 
 
@@ -393,16 +402,18 @@ public class PostDetailFragment extends BaseFragment implements GoogleApiClient.
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE)
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
             return;
+        }
 
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                Manifest.permission.ACCESS_FINE_LOCATION))
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Enable the my location layer if the permission has been granted.
             enableMyLocation();
-        else
+        } else {
             // Display the missing permission error dialog when the fragments resume.
             mPermissionDenied = true;
+        }
     }
 
     /**
@@ -442,8 +453,9 @@ public class PostDetailFragment extends BaseFragment implements GoogleApiClient.
         }
 
         public void afterTextChanged(Editable editable) {
-            if (view.getId() == R.id.field_comment_text)
+            if (view.getId() == R.id.field_comment_text) {
                 validateComment();
+            }
         }
     }
 }

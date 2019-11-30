@@ -28,10 +28,11 @@ public class FriendsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setUserStatus(String status) {
-        if (status.equals("true"))
+        if (status.equals("true")) {
             statusIcon.setVisibility(View.VISIBLE);
-        else
+        } else {
             statusIcon.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

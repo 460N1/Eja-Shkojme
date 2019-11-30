@@ -40,8 +40,9 @@ public class EjaShkojme extends Application {
                 @SuppressWarnings("NullableProblems")
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot != null)
+                    if (dataSnapshot != null) {
                         mUserDatabase.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
+                    }
                 }
 
                 @SuppressWarnings("NullableProblems")

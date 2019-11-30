@@ -103,10 +103,11 @@ public abstract class PostListFragment extends BaseFragment {
                 });
 
                 // Determine if the current user has liked this post and set UI accordingly
-                if (model.stars.containsKey(getUid()))
+                if (model.stars.containsKey(getUid())) {
                     viewHolder.starView.setImageResource(R.drawable.baseline_star_24);
-                else
+                } else {
                     viewHolder.starView.setImageResource(R.drawable.baseline_star_border_24);
+                }
 
                 // Bind Post to ViewHolder, setting OnClickListener for the star button
                 viewHolder.bindToPost(model, starView -> {
@@ -129,8 +130,9 @@ public abstract class PostListFragment extends BaseFragment {
             @Override
             public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Post p = mutableData.getValue(Post.class);
-                if (p == null)
+                if (p == null) {
                     return Transaction.success(mutableData);
+                }
 
                 if (p.stars.containsKey(getUid())) {
                     // Unstar the post and remove self from stars
@@ -159,15 +161,17 @@ public abstract class PostListFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (mAdapter != null)
+        if (mAdapter != null) {
             mAdapter.startListening();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAdapter != null)
+        if (mAdapter != null) {
             mAdapter.stopListening();
+        }
     }
 
     public abstract Query getQuery(DatabaseReference databaseReference);

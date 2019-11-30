@@ -60,14 +60,14 @@ public class ProfileActivity extends BaseActivity {
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name = dataSnapshot.child("name").getValue(String.class);
-                String status = dataSnapshot.child("status").getValue(String.class);
-                final String image = dataSnapshot.child("image").getValue(String.class);
+                String name = dataSnapshot.child("name").getValue().toString();
+                String status = dataSnapshot.child("status").getValue().toString();
+                final String image = dataSnapshot.child("image").getValue().toString();
 
                 mName.setText(name);
                 mStatus.setText(status);
 
-                if (!Objects.requireNonNull(image).equals("default"))
+                if (!Objects.requireNonNull(image).equals("default")) {
                     Picasso.get().load(image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_avatar).into(mProfileImage, new Callback() {
                         @Override
                         public void onSuccess() {
@@ -78,8 +78,9 @@ public class ProfileActivity extends BaseActivity {
                             Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
                         }
                     });
-                else
+                } else {
                     Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage);
+                }
                 if (getUid().equals(user_id)) {
                     mDays.setVisibility(View.INVISIBLE);
                     mDeclineButton.setEnabled(false);
@@ -93,7 +94,7 @@ public class ProfileActivity extends BaseActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(user_id)) {
-                            String req_type = dataSnapshot.child(user_id).child("request_type").getValue(String.class);
+                            String req_type = dataSnapshot.child(user_id).child("request_type").getValue().toString();
                             if (Objects.requireNonNull(req_type).equals("received")) {
                                 currentState = "req_received";
                                 mSendReqButton.setText(R.string.accept_req_text);
@@ -108,14 +109,14 @@ public class ProfileActivity extends BaseActivity {
                                 mDeclineButton.setEnabled(false);
                             }
                             hideProgressDialog();
-                        } else
+                        } else {
                             mFriendDatabase.child(getUid()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.hasChild(user_id)) {
                                         currentState = "friends";
                                         mDays.setVisibility(View.VISIBLE);
-                                        final String date = dataSnapshot.child(user_id).child("date").getValue(String.class);
+                                        final String date = dataSnapshot.child(user_id).child("date").getValue().toString();
                                         mDays.setText(TimeUtils.getDaysSince(date));
                                         mSendReqButton.setText(R.string.unfriend_text);
                                         mDeclineButton.setVisibility(View.INVISIBLE);
@@ -129,6 +130,7 @@ public class ProfileActivity extends BaseActivity {
                                     hideProgressDialog();
                                 }
                             });
+                        }
                     }
 
                     @Override
@@ -157,9 +159,9 @@ public class ProfileActivity extends BaseActivity {
                 requestMap.put("friend_req/" + user_id + "/" + getUid() + "/request_type", "received");
                 requestMap.put("notifications/" + user_id + "/" + notificationId, notification);
                 mDatabase.updateChildren(requestMap, (databaseError, databaseReference) -> {
-                    if (databaseError != null)
+                    if (databaseError != null) {
                         Toast.makeText(ProfileActivity.this, "Error sending request", Toast.LENGTH_SHORT).show();
-                    else {
+                    } else {
                         currentState = "req_sent";
                         mSendReqButton.setText(R.string.cancel_req_text);
                     }
@@ -167,7 +169,7 @@ public class ProfileActivity extends BaseActivity {
                 });
             }
             // sent request state
-            if (currentState.equals("req_sent"))
+            if (currentState.equals("req_sent")) {
                 mFriendReqDatabase.child(getUid()).child(user_id).removeValue().addOnSuccessListener(aVoid -> mFriendReqDatabase.child(user_id).child(getUid()).removeValue().addOnSuccessListener(aVoid1 -> {
                     mSendReqButton.setEnabled(true);
                     currentState = "not_friends";
@@ -176,6 +178,7 @@ public class ProfileActivity extends BaseActivity {
                     mDeclineButton.setVisibility(View.INVISIBLE);
                     mDeclineButton.setEnabled(false);
                 }));
+            }
             // received request state
             if (currentState.equals("req_received")) {
                 @SuppressLint("SimpleDateFormat") final String currentDate = new SimpleDateFormat("M/dd/yyyy").format(new Date());
