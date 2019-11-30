@@ -25,8 +25,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.a60n1.ejashkojme.Common.Common;
-import com.a60n1.ejashkojme.Remote.IGoogleAPI;
+import com.a60n1.ejashkojme.common.Common;
+import com.a60n1.ejashkojme.remote.IGoogleAPI;
 import com.a60n1.ejashkojme.utils.PermissionUtils;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
@@ -72,9 +72,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// import com.a60n1.ejashkojme.adapter.PlaceAutocompleteAdapter;
-
-
+@SuppressWarnings("deprecation")
 public class DriverMapActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
@@ -103,7 +101,6 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     private LatLng currentPosition;
     private Button mGoButton;
     private AutoCompleteTextView mSearchPickText;
-    // private PlaceAutocompleteAdapter mAdapter;
     private TextView mPickupName;
     private CircleImageView mRiderAvatar;
     private GeoDataClient mGeoDataClient;
