@@ -20,19 +20,17 @@ class ConversationViewHolder(var mView: View) : RecyclerView.ViewHolder(mView) {
     fun setMessage(message: Message, seen: Boolean) {
         statusView.text = message.message
         timestampView.text = getLastMessageTime(message.timestamp)
-        if (!seen) {
+        if (!seen)
             statusView.setTypeface(statusView.typeface, Typeface.BOLD)
-        } else {
+        else
             statusView.setTypeface(statusView.typeface, Typeface.NORMAL)
-        }
     }
 
     fun setUserStatus(status: String) {
-        if (status == "true") {
+        if (status == "true")
             statusIcon.visibility = View.VISIBLE
-        } else {
+        else
             statusIcon.visibility = View.INVISIBLE
-        }
     }
 
     init {

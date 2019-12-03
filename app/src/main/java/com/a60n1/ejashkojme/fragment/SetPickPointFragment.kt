@@ -123,7 +123,7 @@ class SetPickPointFragment : BaseFragment() {
     }
 
     companion object {
-        private const val TAG = "SetPickPointFragment"
+        private const val TAG = "460N1_DEV_PickPoint"
         fun newInstance(): SetPickPointFragment {
             return SetPickPointFragment()
         }

@@ -23,9 +23,8 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog!!.isShowing) {
+        if (mProgressDialog != null && mProgressDialog!!.isShowing)
             mProgressDialog!!.dismiss()
-        }
     }
 
     val uid: String

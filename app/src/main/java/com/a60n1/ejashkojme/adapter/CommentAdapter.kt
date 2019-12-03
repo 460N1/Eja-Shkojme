@@ -21,7 +21,8 @@ import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import java.util.*
 
-class CommentAdapter(private val mContext: Context, private val mDatabaseReference: DatabaseReference) : RecyclerView.Adapter<CommentViewHolder>() {
+class CommentAdapter(private val mContext: Context, private val mDatabaseReference: DatabaseReference)
+    : RecyclerView.Adapter<CommentViewHolder>() {
     @Suppress("JoinDeclarationAndAssignment")
     private val mainActivity: MainActivity
     private val mChildEventListener: ChildEventListener?
@@ -58,7 +59,7 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java) ?: return
                 val thumbImage = user.thumb_image
-                if (thumbImage != "default") {
+                if (thumbImage != "default")
                     Picasso.get().load(thumbImage).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.default_avatar).into(holder.authorAvatar, object : Callback {
                                 override fun onSuccess() {}
@@ -66,9 +67,8 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
                                     Picasso.get().load(thumbImage).placeholder(R.drawable.default_avatar).into(holder.authorAvatar)
                                 }
                             })
-                } else {
+                else
                     Picasso.get().load(thumbImage).placeholder(R.drawable.default_avatar).into(holder.authorAvatar)
-                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
@@ -81,13 +81,12 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
     }
 
     fun cleanupListener() {
-        if (mChildEventListener != null) {
+        if (mChildEventListener != null)
             mDatabaseReference.removeEventListener(mChildEventListener)
-        }
     }
 
     companion object {
-        private const val TAG = "CommentAdapter"
+        private const val TAG = "460N_DEV_CommentAdapter"
     }
 
     init {
@@ -115,9 +114,8 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
                     mComments[commentIndex] = newComment
                     // Update the RecyclerView
                     notifyItemChanged(commentIndex)
-                } else {
+                } else
                     Log.w(TAG, "onChildChanged:unknown_child:$commentKey")
-                }
             }
 
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
@@ -131,9 +129,8 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
                     mComments.removeAt(commentIndex)
                     // Update the RecyclerView
                     notifyItemRemoved(commentIndex)
-                } else {
+                } else
                     Log.w(TAG, "onChildRemoved:unknown_child:$commentKey")
-                }
             }
 
             @Suppress("UNUSED_VARIABLE")

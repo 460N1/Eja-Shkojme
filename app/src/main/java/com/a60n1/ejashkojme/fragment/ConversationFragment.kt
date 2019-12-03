@@ -108,20 +108,20 @@ class ConversationFragment : BaseFragment() {
                 return ConversationViewHolder(inflater.inflate(R.layout.item_conv, parent, false))
             }
         }
-        mRecycler!!.adapter = mAdapter
+        mRecycler?.adapter = mAdapter
     }
 
     override fun onStart() {
         super.onStart()
         if (mAdapter != null) {
-            mAdapter!!.startListening()
+            mAdapter?.startListening()
         }
     }
 
     override fun onStop() {
         super.onStop()
         if (mAdapter != null) {
-            mAdapter!!.stopListening()
+            mAdapter?.stopListening()
         }
     }
 }

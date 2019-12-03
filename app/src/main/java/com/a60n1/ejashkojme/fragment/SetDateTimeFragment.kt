@@ -63,12 +63,10 @@ class SetDateTimeFragment : BaseFragment() {
     }
 
     private fun goToNext() {
-        if (!validateDate()) {
+        if (!validateDate())
             return
-        }
-        if (!validateTime()) {
+        if (!validateTime())
             return
-        }
         val date = mPickDateText!!.text.toString()
         val time = mPickTimeText!!.text.toString()
         mainActivity!!.onPickOriginDestinationBtnClicked(date, time)
@@ -79,9 +77,8 @@ class SetDateTimeFragment : BaseFragment() {
         if (date.isEmpty()) {
             mLayoutDate!!.error = getString(R.string.err_msg_date)
             return false
-        } else {
+        } else
             mLayoutDate!!.isErrorEnabled = false
-        }
         return true
     }
 
@@ -90,9 +87,8 @@ class SetDateTimeFragment : BaseFragment() {
         if (time.isEmpty()) {
             mLayoutTime!!.error = getString(R.string.err_msg_time)
             return false
-        } else {
+        } else
             mLayoutTime!!.isErrorEnabled = false
-        }
         return true
     }
 

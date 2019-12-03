@@ -8,7 +8,10 @@ class Conversation {
     var seen = false
     var timestamp: Long = 0
 
+    @Suppress("unused")
     constructor()
+
+    @Suppress("unused")
     constructor(seen: Boolean, timestamp: Long) {
         this.seen = seen
         this.timestamp = timestamp

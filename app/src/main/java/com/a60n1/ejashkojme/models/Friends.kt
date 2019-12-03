@@ -6,7 +6,10 @@ import com.google.firebase.database.IgnoreExtraProperties
 class Friends {
     var date: String? = null
 
+    @Suppress("unused")
     constructor()
+
+    @Suppress("unused")
     constructor(date: String?) {
         this.date = date
     }

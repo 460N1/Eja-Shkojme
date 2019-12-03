@@ -53,16 +53,15 @@ class ProfileActivity : BaseActivity() {
                 val image = dataSnapshot.child("image").value.toString()
                 mName!!.text = name
                 mStatus!!.text = status
-                if (Objects.requireNonNull(image) != "default") {
+                if (Objects.requireNonNull(image) != "default")
                     Picasso.get().load(image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_avatar).into(mProfileImage, object : Callback {
                         override fun onSuccess() {}
                         override fun onError(e: Exception) {
                             Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage)
                         }
                     })
-                } else {
+                else
                     Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mProfileImage)
-                }
                 if (uid == userId) {
                     mDays!!.visibility = View.INVISIBLE
                     mDeclineButton!!.isEnabled = false
@@ -89,7 +88,7 @@ class ProfileActivity : BaseActivity() {
                                 mDeclineButton!!.isEnabled = false
                             }
                             hideProgressDialog()
-                        } else {
+                        } else
                             mFriendDatabase!!.child(uid).addValueEventListener(object : ValueEventListener {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                                     if (dataSnapshot.hasChild(userId)) {
@@ -108,7 +107,6 @@ class ProfileActivity : BaseActivity() {
                                     hideProgressDialog()
                                 }
                             })
-                        }
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {}
@@ -129,9 +127,9 @@ class ProfileActivity : BaseActivity() {
                 requestMap["friend_req/$userId/$uid/request_type"] = "received"
                 requestMap["notifications/$userId/$notificationId"] = notification
                 mDatabase!!.updateChildren(requestMap) { databaseError: DatabaseError?, _: DatabaseReference? ->
-                    if (databaseError != null) {
+                    if (databaseError != null)
                         Toast.makeText(this@ProfileActivity, "Error sending request", Toast.LENGTH_SHORT).show()
-                    } else {
+                    else {
                         currentState = "req_sent"
                         mSendReqButton!!.setText(R.string.cancel_req_text)
                     }
@@ -139,7 +137,7 @@ class ProfileActivity : BaseActivity() {
                 }
             }
             // sent request state
-            if (currentState == "req_sent") {
+            if (currentState == "req_sent")
                 mFriendReqDatabase!!.child(uid).child(userId).removeValue().addOnSuccessListener {
                     mFriendReqDatabase!!.child(userId).child(uid).removeValue().addOnSuccessListener {
                         mSendReqButton!!.isEnabled = true
@@ -150,7 +148,6 @@ class ProfileActivity : BaseActivity() {
                         mDeclineButton!!.isEnabled = false
                     }
                 }
-            }
             // received request state
             if (currentState == "req_received") {
                 @SuppressLint("SimpleDateFormat") val currentDate = SimpleDateFormat("M/dd/yyyy").format(Date())

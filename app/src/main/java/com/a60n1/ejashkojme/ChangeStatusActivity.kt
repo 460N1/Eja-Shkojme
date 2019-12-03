@@ -44,20 +44,18 @@ class ChangeStatusActivity : BaseActivity() {
     }
 
     private fun changeStatus() {
-        if (!validateStatus()) {
+        if (!validateStatus())
             return
-        }
         mProgress = ProgressDialog(this@ChangeStatusActivity)
         mProgress!!.setTitle("Saving changes...")
         mProgress!!.show()
         val status = mStatus!!.text.toString()
         val userId = uid
         mDatabase!!.child("users").child(userId).child("status").setValue(status).addOnCompleteListener { task: Task<Void?> ->
-            if (task.isSuccessful) {
+            if (task.isSuccessful)
                 mProgress!!.dismiss()
-            } else {
+            else
                 Toast.makeText(this@ChangeStatusActivity, "Error saving changes", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
@@ -67,25 +65,22 @@ class ChangeStatusActivity : BaseActivity() {
             mLayoutStatus!!.error = getString(R.string.err_msg_status)
             requestFocus(mStatus)
             return false
-        } else {
+        } else
             mLayoutStatus!!.isErrorEnabled = false
-        }
         return true
     }
 
     private fun requestFocus(view: View?) {
-        if (view!!.requestFocus()) {
+        if (view!!.requestFocus())
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-        }
     }
 
     private inner class MyTextWatcher(private val view: View) : TextWatcher {
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
         override fun afterTextChanged(editable: Editable) {
-            if (view.id == R.id.status_input) {
+            if (view.id == R.id.status_input)
                 validateStatus()
-            }
         }
 
     }

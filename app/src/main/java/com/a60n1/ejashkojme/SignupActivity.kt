@@ -71,18 +71,14 @@ class SignupActivity : BaseActivity() {
      * Validating form inputs
      */
     private fun submitRegisterInfo() {
-        if (!validateFirstName()) {
+        if (!validateFirstName())
             return
-        }
-        if (!validateLastName()) {
+        if (!validateLastName())
             return
-        }
-        if (!validateEmail()) {
+        if (!validateEmail())
             return
-        }
-        if (!validatePassword()) {
+        if (!validatePassword())
             return
-        }
         showProgressDialog()
         val name = mFirstName!!.text.toString().trim { it <= ' ' } + " " + mLastName!!.text.toString().trim { it <= ' ' }
         val email = mEmail!!.text.toString()
@@ -91,9 +87,9 @@ class SignupActivity : BaseActivity() {
                 .addOnCompleteListener(this@SignupActivity) { task: Task<AuthResult?> ->
                     hideProgressDialog()
                     //check register is successful
-                    if (!task.isSuccessful) {
+                    if (!task.isSuccessful)
                         Toast.makeText(this@SignupActivity, "Error signing up", Toast.LENGTH_SHORT).show()
-                    } else {
+                    else {
                         Toast.makeText(this@SignupActivity, "Successfully signed up", Toast.LENGTH_SHORT).show()
                         val userId = uid
                         @Suppress("DEPRECATION") val deviceToken = FirebaseInstanceId.getInstance().token
@@ -107,9 +103,8 @@ class SignupActivity : BaseActivity() {
             mLayoutFirstName!!.error = getString(R.string.err_msg_firstname)
             requestFocus(mFirstName)
             return false
-        } else {
+        } else
             mLayoutFirstName!!.isErrorEnabled = false
-        }
         return true
     }
 
@@ -118,9 +113,8 @@ class SignupActivity : BaseActivity() {
             mLayoutLastName!!.error = getString(R.string.err_msg_lastname)
             requestFocus(mLastName)
             return false
-        } else {
+        } else
             mLayoutLastName!!.isErrorEnabled = false
-        }
         return true
     }
 
@@ -130,9 +124,8 @@ class SignupActivity : BaseActivity() {
             mLayoutEmail!!.error = getString(R.string.err_msg_email)
             requestFocus(mEmail)
             return false
-        } else {
+        } else
             mLayoutEmail!!.isErrorEnabled = false
-        }
         return true
     }
 
@@ -141,16 +134,14 @@ class SignupActivity : BaseActivity() {
             mLayoutPassword!!.error = getString(R.string.err_msg_password)
             requestFocus(mPassword)
             return false
-        } else {
+        } else
             mLayoutPassword!!.isErrorEnabled = false
-        }
         return true
     }
 
     private fun requestFocus(view: View?) {
-        if (view!!.requestFocus()) {
+        if (view!!.requestFocus())
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-        }
     }
 
     private fun writeNewUser(userId: String, name: String, email: String, device_token: String?) {

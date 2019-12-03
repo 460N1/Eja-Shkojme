@@ -7,7 +7,9 @@ class Ride {
     var from: String? = null
     private var address: String? = null
 
+    @Suppress("unused")
     constructor()
+
     constructor(from: String?, address: String?) {
         this.from = from
         this.address = address

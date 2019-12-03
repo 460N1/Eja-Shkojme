@@ -40,7 +40,7 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java) ?: return
                 val thumbImage = user.thumb_image
-                if (thumbImage != "default") {
+                if (thumbImage != "default")
                     Picasso.get().load(thumbImage).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.default_avatar).into(authorAvatar, object : Callback {
                                 override fun onSuccess() {}
@@ -48,9 +48,8 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                                     Picasso.get().load(thumbImage).placeholder(R.drawable.default_avatar).into(authorAvatar)
                                 }
                             })
-                } else {
+                else
                     Picasso.get().load(thumbImage).placeholder(R.drawable.default_avatar).into(authorAvatar)
-                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}

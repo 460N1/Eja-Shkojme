@@ -347,7 +347,7 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
 
     companion object {
         private const val EXTRA_POST_KEY = "post_key"
-        private const val TAG = "PostDetailFragment"
+        private const val TAG = "460N1_DEV_PostDetail"
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val LOG_TAG = "PostDetailFragment"
         private var start: String? = null

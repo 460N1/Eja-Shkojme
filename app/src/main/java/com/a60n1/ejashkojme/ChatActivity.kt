@@ -62,9 +62,9 @@ class ChatActivity : BaseActivity() {
         mDatabase!!.child("users").child(mChatUser!!).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val online = dataSnapshot.child("online").value.toString()
-                if (online == "true") {
+                if (online == "true")
                     mLastSeen!!.setText(R.string.online)
-                } else {
+                else {
                     val lastTime = Objects.requireNonNull(online).toLong()
                     mLastSeen!!.text = getLastSeenTime(lastTime)
                 }
@@ -82,9 +82,8 @@ class ChatActivity : BaseActivity() {
                     chatUserMap["chat/$uid/$mChatUser"] = chatAddMap
                     chatUserMap["chat/$mChatUser/$uid"] = chatAddMap
                     mDatabase!!.updateChildren(chatUserMap) { databaseError: DatabaseError?, _: DatabaseReference? ->
-                        if (databaseError != null) {
+                        if (databaseError != null)
                             Log.d(TAG, databaseError.message)
-                        }
                     }
                 }
             }
@@ -92,9 +91,8 @@ class ChatActivity : BaseActivity() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
         mMessageRecycler!!.addOnLayoutChangeListener { _: View?, _: Int, _: Int, _: Int, bottom: Int, _: Int, _: Int, _: Int, oldBottom: Int ->
-            if (bottom < oldBottom && mMessageRecycler!!.adapter!!.itemCount > 0) {
+            if (bottom < oldBottom && mMessageRecycler!!.adapter!!.itemCount > 0)
                 mMessageRecycler!!.postDelayed({ mMessageRecycler!!.smoothScrollToPosition(mMessageRecycler!!.adapter!!.itemCount - 1) }, 100)
-            }
         }
         mSendButton = findViewById(R.id.button_chatbox_send)
         mSendButton!!.setOnClickListener { sentMessage() }
@@ -150,14 +148,13 @@ class ChatActivity : BaseActivity() {
             mDatabase!!.child("chat").child(mChatUser!!).child(uid).child("seen").setValue(false)
             mDatabase!!.child("chat").child(mChatUser!!).child(uid).child("timestamp").setValue(ServerValue.TIMESTAMP)
             mDatabase!!.updateChildren(messageUserMap) { databaseError: DatabaseError?, _: DatabaseReference? ->
-                if (databaseError != null) {
+                if (databaseError != null)
                     Log.d(TAG, databaseError.message)
-                }
             }
         }
     }
 
     companion object {
-        private const val TAG = "ChatActivity"
+        private const val TAG = "460N1_DEV_ChatActivity"
     }
 }

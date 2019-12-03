@@ -30,7 +30,7 @@ class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java) ?: return
                 val thumbnail = user.thumb_image
-                if (thumbnail != "default") {
+                if (thumbnail != "default")
                     Picasso.get().load(thumbnail).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.default_avatar).into(profileAvatar, object : Callback {
                                 override fun onSuccess() {}
@@ -38,9 +38,8 @@ class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
                                     Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(profileAvatar)
                                 }
                             })
-                } else {
+                else
                     Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(profileAvatar)
-                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}

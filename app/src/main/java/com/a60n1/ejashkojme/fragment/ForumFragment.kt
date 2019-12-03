@@ -57,11 +57,11 @@ class ForumFragment : BaseFragment() {
         }
         // Set up the ViewPager with the sections adapter.
         mViewPager = view.findViewById(R.id.forum_container)
-        mViewPager!!.adapter = mPagerAdapter
+        mViewPager?.adapter = mPagerAdapter
         val tabLayout: TabLayout = view.findViewById(R.id.forum_tabs)
         tabLayout.setupWithViewPager(mViewPager)
         val fab: FloatingActionButton = view.findViewById(R.id.fab_new_post)
-        fab.setOnClickListener { mainActivity!!.onNewPostBtnClicked() }
+        fab.setOnClickListener { mainActivity?.onNewPostBtnClicked() }
         return view
     }
 

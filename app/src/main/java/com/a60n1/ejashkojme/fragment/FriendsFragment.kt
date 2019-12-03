@@ -115,9 +115,8 @@ class FriendsFragment : BaseFragment() {
                                                 val rideMap: MutableMap<String, Any> = HashMap()
                                                 rideMap["rides/$listUserId/$ridesId"] = ride
                                                 mDatabase!!.updateChildren(rideMap) { databaseError: DatabaseError?, _: DatabaseReference? ->
-                                                    if (databaseError != null) {
+                                                    if (databaseError != null)
                                                         Toast.makeText(context, "Error starting ride", Toast.LENGTH_SHORT).show()
-                                                    }
                                                 }
                                                 startActivity(driverMapIntent)
                                             }
@@ -130,7 +129,7 @@ class FriendsFragment : BaseFragment() {
                             }
                             popup.show()
                         }
-                        if (thumbnail != "default") {
+                        if (thumbnail != "default")
                             Picasso.get().load(thumbnail).networkPolicy(NetworkPolicy.OFFLINE)
                                     .placeholder(R.drawable.default_avatar).into(holder.userAvatar, object : Callback {
                                         override fun onSuccess() {}
@@ -138,9 +137,8 @@ class FriendsFragment : BaseFragment() {
                                             Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar)
                                         }
                                     })
-                        } else {
+                        else
                             Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar)
-                        }
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {}
@@ -157,16 +155,14 @@ class FriendsFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter!!.startListening()
-        }
     }
 
     override fun onStop() {
         super.onStop()
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter!!.stopListening()
-        }
     }
 
     private fun getQuery(databaseReference: DatabaseReference?): Query? { // All my friends

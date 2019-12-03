@@ -22,62 +22,45 @@ object TimeUtils {
     @SuppressLint("SimpleDateFormat")
     fun getLastMessageTime(timeGot: Long): String? {
         var time = timeGot
-        if (time < 1000000000000L) { // if timestamp given in seconds, convert to millis
+        if (time < 1000000000000L) // if timestamp given in seconds, convert to millis
             time *= 1000
-        }
         val calendar = Calendar.getInstance()
         val now = calendar.timeInMillis
-        if (time > now || time <= 0) {
+        if (time > now || time <= 0)
             return null
-        }
         val diff = now - time
         return when {
-            diff < 24 * HOUR_MILLIS -> {
-                SimpleDateFormat("h:mm a").format(Date(time))
-            }
-            diff < 48 * HOUR_MILLIS -> {
-                "YESTERDAY"
-            }
-            else -> {
-                SimpleDateFormat("M/dd/yyyy").format(Date(time))
-            }
+            diff < 24 * HOUR_MILLIS -> SimpleDateFormat("h:mm a").format(Date(time))
+            diff < 48 * HOUR_MILLIS -> "YESTERDAY"
+            else -> SimpleDateFormat("M/dd/yyyy").format(Date(time))
         }
     }
 
     @JvmStatic
     fun getLastSeenTime(timeGot: Long): String? {
         var time = timeGot
-        if (time < 1000000000000L) { // if timestamp given in seconds, convert to millis
+        if (time < 1000000000000L) // if timestamp given in seconds, convert to millis
             time *= 1000
-        }
         val calendar = Calendar.getInstance()
         val now = calendar.timeInMillis
-        if (time > now || time <= 0) {
+        if (time > now || time <= 0)
             return null
-        }
         val diff = now - time
         return when {
-            diff < MINUTE_MILLIS -> {
+            diff < MINUTE_MILLIS ->
                 "Last seen just now"
-            }
-            diff < 2 * MINUTE_MILLIS -> {
+            diff < 2 * MINUTE_MILLIS ->
                 "Last seen 1 minute ago"
-            }
-            diff < 50 * MINUTE_MILLIS -> {
+            diff < 50 * MINUTE_MILLIS ->
                 "Last seen " + diff / MINUTE_MILLIS + " minutes ago"
-            }
-            diff < 90 * MINUTE_MILLIS -> {
+            diff < 90 * MINUTE_MILLIS ->
                 "Last seen 1 hour ago"
-            }
-            diff < 24 * HOUR_MILLIS -> {
+            diff < 24 * HOUR_MILLIS ->
                 "Last seen " + diff / HOUR_MILLIS + " hours ago"
-            }
-            diff < 48 * HOUR_MILLIS -> {
+            diff < 48 * HOUR_MILLIS ->
                 "Last seen yesterday"
-            }
-            else -> {
+            else ->
                 "Last seen " + diff / DAY_MILLIS + " days ago"
-            }
         }
     }
 
@@ -88,15 +71,12 @@ object TimeUtils {
         val today = DateTime()
         val days = Days.daysBetween(oldDate, today).days
         return when {
-            days <= 0 -> {
+            days <= 0 ->
                 "You have just become friends"
-            }
-            days == 1 -> {
+            days == 1 ->
                 "You have been friends for 1 day"
-            }
-            else -> {
+            else ->
                 "You have been friends for $days days"
-            }
         }
     }
 }

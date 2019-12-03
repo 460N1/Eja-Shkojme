@@ -2,4 +2,5 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyC-UyLMFeoDt5ucMD8aqwMN4_Vktljoi5g
     </string>
+    <!--key not yet restricted, in use for testing purposes-->
 </resources>

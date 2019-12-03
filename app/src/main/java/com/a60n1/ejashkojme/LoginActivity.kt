@@ -67,12 +67,10 @@ class LoginActivity : BaseActivity() {
      * Validating form inputs
      */
     private fun submitLoginInfo() {
-        if (!validateEmail()) {
+        if (!validateEmail())
             return
-        }
-        if (!validatePassword()) {
+        if (!validatePassword())
             return
-        }
         showProgressDialog()
         // after validated info
         val email = mEmail!!.text.toString()
@@ -88,9 +86,8 @@ class LoginActivity : BaseActivity() {
                             startActivity(intent)
                             finish()
                         }
-            } else {
+            } else
                 Toast.makeText(this@LoginActivity, "Error logging in", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
@@ -100,9 +97,8 @@ class LoginActivity : BaseActivity() {
             mLayoutEmail!!.error = getString(R.string.err_msg_email)
             requestFocus(mEmail)
             return false
-        } else {
+        } else
             mLayoutEmail!!.isErrorEnabled = false
-        }
         return true
     }
 
@@ -111,16 +107,14 @@ class LoginActivity : BaseActivity() {
             mLayoutPassword!!.error = getString(R.string.err_msg_password)
             requestFocus(mPassword)
             return false
-        } else {
+        } else
             mLayoutPassword!!.isErrorEnabled = false
-        }
         return true
     }
 
     private fun requestFocus(view: View?) {
-        if (view!!.requestFocus()) {
+        if (view!!.requestFocus())
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-        }
     }
 
     private inner class MyTextWatcher(private val view: View) : TextWatcher {

@@ -131,7 +131,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
         if (name != null && thumb_image != null) {
             mPickupName.setText("Pickup " + name);
-            if (!thumb_image.equals("default")) {
+            if (!thumb_image.equals("default"))
                 Picasso.get().load(thumb_image).networkPolicy(NetworkPolicy.OFFLINE)
                         .placeholder(R.drawable.default_avatar).into(mRiderAvatar, new com.squareup.picasso.Callback() {
                     @Override
@@ -144,24 +144,19 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                         Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(mRiderAvatar);
                     }
                 });
-            } else {
+            else
                 Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(mRiderAvatar);
-            }
         } else {
             CardView cardView = findViewById(R.id.driver_pickup_view);
             cardView.setVisibility(View.GONE);
         }
 
         mUserPostsDatabase = FirebaseDatabase.getInstance().getReference().child("user-posts");
-        if (mRiderId != null) {
+        if (mRiderId != null)
             mSearchPickText.setText(origin);
-        }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mGeoDataClient = Places.getGeoDataClient(this, null);
-        // Set up the adapter that will retrieve suggestions from the Places Geo Data Client.
-        // mAdapter = new PlaceAutocompleteAdapter(this, mGeoDataClient, null, null);
-        // mSearchPickText.setAdapter(mAdapter);
         polyLineList = new ArrayList<>();
         mGoButton = findViewById(R.id.btn_go);
 
@@ -187,10 +182,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     protected void onStop() {
         super.onStop();
         stopLocationUpdate();
-        if (mCurrent != null) {
+        if (mCurrent != null)
             mCurrent.remove();
-        }
-
     }
 
     @Override
@@ -218,9 +211,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     private void getDirection(String destination) {
-        if (mLastLocation == null) {
+        if (mLastLocation == null)
             return;
-        }
         currentPosition = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
         String requestApi;
@@ -392,9 +384,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
     private void stopLocationUpdate() {
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED)
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-        }
     }
 
     private void displayLocation() {
@@ -403,9 +394,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
             final double longitude = mLastLocation.getLongitude();
             //Update to Firebase
             geoFire.setLocation(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(), new GeoLocation(latitude, longitude), (key, error) -> {
-                if (mCurrent != null) {
+                if (mCurrent != null)
                     mCurrent.remove();
-                }
                 mCurrent = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(latitude, longitude))
                         .title("Your Location"));
@@ -413,16 +403,14 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15.0f));
 
             });
-        } else {
+        } else
             Log.d("Error", "Cannot get your location");
-        }
     }
 
     private void startLocationUpdate() {
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED)
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-        }
     }
 
 
@@ -437,16 +425,6 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         };
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -463,37 +441,31 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
     private void enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED)
             mMap.setMyLocationEnabled(true);
-        }  // Show rationale and request permission.
+        // Show rationale and request permission.
 
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
-//        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
         return false;
     }
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-//        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE)
             return;
-        }
 
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Manifest.permission.ACCESS_FINE_LOCATION))
             // Enable the my location layer if the permission has been granted.
             enableMyLocation();
-        }
     }
 
     @Override
@@ -527,7 +499,6 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     public void onConnected(@Nullable Bundle bundle) {
         startLocationUpdate();
         displayLocation();
-
     }
 
     @Override

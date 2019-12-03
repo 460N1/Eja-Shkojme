@@ -39,12 +39,10 @@ class NewPostFragment : BaseFragment() {
     }
 
     private fun goToNext() {
-        if (!validateTitle()) {
+        if (!validateTitle())
             return
-        }
-        if (!validateBody()) {
+        if (!validateBody())
             return
-        }
         val title = mTitleField!!.text.toString()
         val body = mBodyField!!.text.toString()
         mainActivity!!.onPickDateTimeBtnClicked(title, body)
@@ -56,9 +54,8 @@ class NewPostFragment : BaseFragment() {
             mLayoutTitle!!.error = getString(R.string.err_msg_title)
             requestFocus(mTitleField)
             return false
-        } else {
+        } else
             mLayoutTitle!!.isErrorEnabled = false
-        }
         return true
     }
 
@@ -68,16 +65,14 @@ class NewPostFragment : BaseFragment() {
             mLayoutBody!!.error = getString(R.string.err_msg_body)
             requestFocus(mBodyField)
             return false
-        } else {
+        } else
             mLayoutBody!!.isErrorEnabled = false
-        }
         return true
     }
 
     private fun requestFocus(view: View?) {
-        if (view!!.requestFocus()) {
+        if (view!!.requestFocus())
             activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-        }
     }
 
     private inner class MyTextWatcher internal constructor(private val view: View) : TextWatcher {

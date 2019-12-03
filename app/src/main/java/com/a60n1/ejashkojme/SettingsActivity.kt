@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.a60n1.ejashkojme
 
 import android.app.Activity
@@ -75,7 +77,7 @@ class SettingsActivity : BaseActivity() {
                     mName!!.text = user.name
                     mStatus!!.text = user.status
                     val image = user.image
-                    if (image != "default") {
+                    if (image != "default")
                         Picasso.get().load(image).networkPolicy(NetworkPolicy.OFFLINE)
                                 .placeholder(R.drawable.default_avatar).into(mAvatar, object : Callback {
                                     override fun onSuccess() {}
@@ -83,9 +85,8 @@ class SettingsActivity : BaseActivity() {
                                         Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mAvatar)
                                     }
                                 })
-                    } else {
+                    else
                         Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mAvatar)
-                    }
                 }
             }
 
@@ -129,7 +130,7 @@ class SettingsActivity : BaseActivity() {
                             imagePath.downloadUrl.addOnSuccessListener { uri: Uri -> downloadUrl = uri.toString() }
                             val uploadTask = thumbPath.putBytes(thumbByte)
                             uploadTask.addOnCompleteListener { thumb_task: Task<UploadTask.TaskSnapshot?> ->
-                                if (thumb_task.isSuccessful) {
+                                if (thumb_task.isSuccessful)
                                     thumbPath.downloadUrl.addOnSuccessListener { uri: Uri ->
                                         thumbDownloadurl = uri.toString()
                                         val imageMap: MutableMap<String, Any> = HashMap()
@@ -142,7 +143,7 @@ class SettingsActivity : BaseActivity() {
                                             }
                                         }
                                     }
-                                } else {
+                                else {
                                     mProgress!!.dismiss()
                                     Toast.makeText(this@SettingsActivity, "Error uploading thumbnail", Toast.LENGTH_SHORT).show()
                                 }
@@ -168,7 +169,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     companion object {
-        private const val TAG = "SettingsActivity"
+        private const val TAG = "460N1_DEV_Settings"
         private const val SELECT_IMAGE = 1
     }
 }

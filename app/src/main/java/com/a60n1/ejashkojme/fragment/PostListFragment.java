@@ -30,7 +30,7 @@ import java.util.Objects;
 
 public abstract class PostListFragment extends BaseFragment {
 
-    private static final String TAG = "PostListFragment";
+    private static final String TAG = "460N1_DEV_ListFragment";
 
     private DatabaseReference mDatabase;
 
@@ -87,7 +87,7 @@ public abstract class PostListFragment extends BaseFragment {
 
                 // Set click listener for the whole post view
                 final String postKey = postRef.getKey();
-                viewHolder.itemView.setOnClickListener(v -> mainActivity.onViewPostBtnClicked(postKey));
+                viewHolder.itemView.setOnClickListener(v -> Objects.requireNonNull(mainActivity).onViewPostBtnClicked(postKey));
                 viewHolder.authorView.setOnClickListener(v -> {
                     PopupMenu popup = new PopupMenu(getContext(), viewHolder.authorView);
                     popup.inflate(R.menu.menu_user_action);
@@ -103,17 +103,16 @@ public abstract class PostListFragment extends BaseFragment {
                 });
 
                 // Determine if the current user has liked this post and set UI accordingly
-                if (model.stars.containsKey(getUid())) {
+                if (model.stars.containsKey(getUid()))
                     viewHolder.starView.setImageResource(R.drawable.baseline_star_24);
-                } else {
+                else
                     viewHolder.starView.setImageResource(R.drawable.baseline_star_border_24);
-                }
 
                 // Bind Post to ViewHolder, setting OnClickListener for the star button
                 viewHolder.bindToPost(model, starView -> {
                     // Need to write to both places the post is stored
                     DatabaseReference globalPostRef = mDatabase.child("posts").child(Objects.requireNonNull(postRef.getKey()));
-                    DatabaseReference userPostRef = mDatabase.child("user-posts").child(model.uid).child(postRef.getKey());
+                    DatabaseReference userPostRef = mDatabase.child("user-posts").child(Objects.requireNonNull(model.uid)).child(postRef.getKey());
 
                     // Run two transactions
                     onStarClicked(globalPostRef);
@@ -130,9 +129,8 @@ public abstract class PostListFragment extends BaseFragment {
             @Override
             public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Post p = mutableData.getValue(Post.class);
-                if (p == null) {
+                if (p == null)
                     return Transaction.success(mutableData);
-                }
 
                 if (p.stars.containsKey(getUid())) {
                     // Unstar the post and remove self from stars
@@ -161,17 +159,15 @@ public abstract class PostListFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter.startListening();
-        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter.stopListening();
-        }
     }
 
     public abstract Query getQuery(DatabaseReference databaseReference);

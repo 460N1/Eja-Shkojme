@@ -51,7 +51,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         FirebaseApp.initializeApp(applicationContext)
         val userId = uid
         mUserDatabase = FirebaseDatabase.getInstance().reference.child("users").child(userId)
-        mUserDatabase!!.keepSynced(true)
+        mUserDatabase?.keepSynced(true)
         val toolbar = findViewById<Toolbar>(R.id.toolbar_main)
         setSupportActionBar(toolbar)
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -72,8 +72,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         drawer.addDrawerListener(toggle)
         toggle.syncState()
         mNavigationView = findViewById(R.id.nav_view)
-        mNavigationView!!.setNavigationItemSelectedListener(this)
-        mNavigationView!!.setCheckedItem(R.id.nav_forum)
+        mNavigationView?.setNavigationItemSelectedListener(this)
+        mNavigationView?.setCheckedItem(R.id.nav_forum)
         if (findViewById<View?>(R.id.flContent) != null) {
             if (savedInstanceState != null) {
                 return
@@ -286,7 +286,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     companion object {
-        private const val TAG = "MainActivity"
+        private const val TAG = "460N1_DEV_Main"
         private const val FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
         private const val COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1234

@@ -27,6 +27,7 @@ class Post {
     @JvmField
     var stars: Map<String, Boolean> = HashMap()
 
+    @Suppress("unused")
     constructor() { // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 

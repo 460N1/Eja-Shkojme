@@ -11,6 +11,7 @@ class Comment {
     @JvmField
     var text: String? = null
 
+    @Suppress("unused")
     constructor() { // Default constructor required for calls to DataSnapshot.getValue(Comment.class)
     }
 
