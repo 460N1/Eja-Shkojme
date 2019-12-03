@@ -3,7 +3,7 @@
 # Eja Shkojmë - Tema e Diplomës
 
 [![](https://img.shields.io/badge/Author-Agon%20Hoxha-black.svg)](https://www.github.com/460N1/)
-![](https://img.shields.io/badge/Deadline-20/12/2019-yellow.svg) ![](https://img.shields.io/badge/Status-In_Progress-cream.svg)
+![](https://img.shields.io/badge/Deadline-20/12/2019-red.svg) ![](https://img.shields.io/badge/Status-In_Progress-cream.svg)
 [![](https://img.shields.io/badge/Dokumentimi-PDF-cyan.svg)](https://github.com/460N1/Eja-Shkojme/raw/master/Agon_Hoxha-Tema_e_Diplomes.pdf)
 
 [![](https://img.shields.io/github/license/460N1/Eja-Shkojme.svg)](https://github.com/460N1/Eja-Shkojme/blob/master/LICENSE)
