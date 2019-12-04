@@ -17,7 +17,7 @@ open class BaseFragment : Fragment() {
             context as MainActivity
         } catch (e: ClassCastException) {
             throw IllegalStateException(context.javaClass.simpleName
-                    + " is not MainActivity", e)
+                    + " nuk eshte MainActivity", e)
         }
     }
 
@@ -29,7 +29,7 @@ open class BaseFragment : Fragment() {
                 activity as MainActivity
             } catch (e: ClassCastException) {
                 throw IllegalStateException(activity.javaClass.simpleName
-                        + " is not MainActivity", e)
+                        + " nuk eshte MainActivity", e)
             }
         }
     }
@@ -42,7 +42,7 @@ open class BaseFragment : Fragment() {
     val uid: String
         get() = mainActivity!!.uid
 
-    fun hideKeyboard() { // hides the keyboard if applicable
+    fun hideKeyboard() { // me hjek keyboard kur kemi nevoj
         val inputManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(activity!!.currentFocus!!.windowToken,
                 InputMethodManager.HIDE_NOT_ALWAYS)

@@ -47,7 +47,7 @@ class ChangeStatusActivity : BaseActivity() {
         if (!validateStatus())
             return
         mProgress = ProgressDialog(this@ChangeStatusActivity)
-        mProgress!!.setTitle("Saving changes...")
+        mProgress!!.setTitle(getString(R.string.saving))
         mProgress!!.show()
         val status = mStatus!!.text.toString()
         val userId = uid

@@ -87,7 +87,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         mEmail = headerView.findViewById(R.id.nav_header_email)
         mAvatar = headerView.findViewById(R.id.nav_header_avatar)
         title = "Forum"
-        // get user info from firebase
+        // user prej firebase
         mUserDatabase!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) { // Get user value
                 val user = dataSnapshot.getValue(User::class.java)
@@ -100,7 +100,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     mName!!.text = user.name
                     mEmail!!.text = user.email
                     val thumbImage = user.thumb_image
-                    if (thumbImage != "default") {
+                    if (thumbImage != "default")
                         Picasso.get().load(thumbImage).networkPolicy(NetworkPolicy.OFFLINE)
                                 .placeholder(R.drawable.default_avatar).into(mAvatar, object : Callback {
                                     override fun onSuccess() {}
@@ -108,12 +108,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                         Picasso.get().load(thumbImage).placeholder(R.drawable.default_avatar).into(mAvatar)
                                     }
                                 })
-                    } else {
+                    else
                         Picasso.get().load(thumbImage).placeholder(R.drawable.default_avatar).into(mAvatar)
-                    }
                 }
             }
-
             override fun onCancelled(databaseError: DatabaseError) {}
         })
         locationPermission
@@ -122,55 +120,54 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onStart() {
         super.onStart()
         val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
+        if (user != null)
             mUserDatabase!!.child("online").setValue("true")
-        }
     }
 
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START))
             drawer.closeDrawer(GravityCompat.START)
-        } else {
+        else
             onReturnBtnClicked()
-        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean { // Inflate the menu; this adds items to the action bar if it is present.
+    override fun onCreateOptionsMenu(menu: Menu): Boolean { // inflate menu
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean { // Handle action bar item clicks here. The action bar will
-// automatically handle clicks on the Home/Up button, so long
-// as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-        if (id == R.id.action_settings) {
-            val intent = Intent(this@MainActivity, SettingsActivity::class.java)
-            startActivity(intent)
-            finish()
-            return true
-        } else if (id == R.id.action_logout) {
-            mUserDatabase!!.child("online").setValue(ServerValue.TIMESTAMP)
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this@MainActivity, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-            return true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean { // handlin klikimet e options
+        // back handled ne manifest
+        when (item.itemId) {
+            R.id.action_settings -> {
+                val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+                startActivity(intent)
+                finish()
+                return true
+            }
+            R.id.action_logout -> {
+                mUserDatabase!!.child("online").setValue(ServerValue.TIMESTAMP)
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         hideKeyboard()
-        // Handle navigation view item clicks here.
+        // handling klikimet ne Navigation
         val id = item.itemId
         if (id == R.id.nav_forum) {
-            title = "Forum"
+            title = getString(R.string.forum)
             val fragmentManager = supportFragmentManager
             fragmentManager.beginTransaction().replace(R.id.flContent, ForumFragment.newInstance()).commit()
         } else if (id == R.id.nav_chat) {
-            title = "Chat"
+            title = getString(R.string.chat)
             val fragmentManager = supportFragmentManager
             fragmentManager.beginTransaction().replace(R.id.flContent, ChatFragment.newInstance()).commit()
         }
@@ -179,13 +176,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    //////////////// Fragment FloatingActionButton Routines ////////////////
+    //////////////// FAB ////////////////
     fun onNewPostBtnClicked() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.flContent, NewPostFragment.newInstance()).commit()
         hideKeyboard()
         mNavigationView!!.setCheckedItem(R.id.nav_forum)
-        title = "New Post"
+        title = getString(R.string.new_post)
     }
 
     fun onSubmitPostBtnClicked() {
@@ -193,7 +190,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 .replace(R.id.flContent, ForumFragment.newInstance()).commit()
         hideKeyboard()
         mNavigationView!!.setCheckedItem(R.id.nav_forum)
-        title = "Forum"
+        title = getString(R.string.forum)
     }
 
     fun onViewPostBtnClicked(postKey: String?) {
@@ -210,7 +207,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 .replace(R.id.flContent, ForumFragment.newInstance()).commit()
         hideKeyboard()
         mNavigationView!!.setCheckedItem(R.id.nav_forum)
-        title = "Forum"
+        title = getString(R.string.forum)
     }
 
     fun onPickDateTimeBtnClicked(title: String, body: String) {
@@ -229,17 +226,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         hideKeyboard()
     }
 
-    //////////////// Google Maps Routines ////////////////
+    // Google Maps pergaditja
     override fun onMapReady(googleMap: GoogleMap) {
-        Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.map_ready), Toast.LENGTH_SHORT).show()
         Log.d(TAG, "onMapReady: map is ready")
         mMap = googleMap
         if (mLocationPermissionsGranted) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
                 return
-            }
             mMap!!.isMyLocationEnabled = true
             mMap!!.uiSettings.isMyLocationButtonEnabled = false
         }
@@ -253,36 +249,31 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             if (ContextCompat.checkSelfPermission(this.applicationContext,
                             FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 if (ContextCompat.checkSelfPermission(this.applicationContext,
-                                COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                     mLocationPermissionsGranted = true
-                } else {
+                else
                     ActivityCompat.requestPermissions(this,
                             permissions,
                             LOCATION_PERMISSION_REQUEST_CODE)
-                }
-            } else {
+            } else
                 ActivityCompat.requestPermissions(this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE)
-            }
         }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         Log.d(TAG, "onRequestPermissionsResult: called.")
         mLocationPermissionsGranted = false
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty()) {
-                for (grantResult in grantResults) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE)
+            if (grantResults.isNotEmpty())
+                for (grantResult in grantResults)
                     if (grantResult != PackageManager.PERMISSION_GRANTED) {
                         mLocationPermissionsGranted = false
                         Log.d(TAG, "onRequestPermissionsResult: permission failed")
                         return
                     }
-                }
                 Log.d(TAG, "onRequestPermissionsResult: permission granted")
                 mLocationPermissionsGranted = true
-            }
-        }
     }
 
     companion object {

@@ -18,11 +18,12 @@ object TimeUtils {
         return SimpleDateFormat("h:mm a").format(Date(timestamp))
     }
 
+    // getString() not working from here, until I fix it, we'll be speaking English
     @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun getLastMessageTime(timeGot: Long): String? {
         var time = timeGot
-        if (time < 1000000000000L) // if timestamp given in seconds, convert to millis
+        if (time < 1000000000000L) // nese ne sekonda, kthehet ne milisekonda
             time *= 1000
         val calendar = Calendar.getInstance()
         val now = calendar.timeInMillis
@@ -35,11 +36,10 @@ object TimeUtils {
             else -> SimpleDateFormat("M/dd/yyyy").format(Date(time))
         }
     }
-
     @JvmStatic
     fun getLastSeenTime(timeGot: Long): String? {
         var time = timeGot
-        if (time < 1000000000000L) // if timestamp given in seconds, convert to millis
+        if (time < 1000000000000L)
             time *= 1000
         val calendar = Calendar.getInstance()
         val now = calendar.timeInMillis
@@ -63,7 +63,6 @@ object TimeUtils {
                 "Last seen " + diff / DAY_MILLIS + " days ago"
         }
     }
-
     @JvmStatic
     fun getDaysSince(date: String?): String {
         val oldDate = DateTime.parse(date,

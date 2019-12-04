@@ -16,8 +16,7 @@ class User {
     var thumb_image: String? = null
     private var device_token: String? = null
 
-    constructor() { // Default constructor required for calls to DataSnapshot.getValue(User.class)
-    }
+    constructor()
 
     constructor(name: String?, email: String?, device_token: String?) {
         this.name = name

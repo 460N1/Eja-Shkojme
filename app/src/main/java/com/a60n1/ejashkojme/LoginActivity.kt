@@ -20,7 +20,6 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
-import java.util.*
 
 @Suppress("DEPRECATION")
 class LoginActivity : BaseActivity() {
@@ -31,14 +30,16 @@ class LoginActivity : BaseActivity() {
     private var mLayoutEmail: TextInputLayout? = null
     private var mLayoutPassword: TextInputLayout? = null
     private var mAuth: FirebaseAuth? = null
-    override fun onCreate(savedInstanceState: Bundle?) { // Comment out in final release
-        val locale = Locale("sq")
-        Locale.setDefault(locale)
-        val config = baseContext.resources.configuration
-        config.locale = locale
-        baseContext.resources.updateConfiguration(config,
-                baseContext.resources.displayMetrics)
-        // Or add language toggle
+    override fun onCreate(savedInstanceState: Bundle?) {
+        //        val locale = Locale("sq")
+        //        Locale.setDefault(locale)
+        //        val config = baseContext.resources.configuration
+        //        config.locale = locale
+        //        baseContext.resources.updateConfiguration(config,
+        //                baseContext.resources.displayMetrics)
+        // hard-set gjuhen ne shqip pavarsisht prej device language
+        // ^^^
+        // language toggle duhet me u shtu
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         FirebaseApp.initializeApp(applicationContext)
@@ -63,16 +64,13 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    /**
-     * Validating form inputs
-     */
     private fun submitLoginInfo() {
         if (!validateEmail())
             return
         if (!validatePassword())
             return
         showProgressDialog()
-        // after validated info
+        // nese validimi me sukses
         val email = mEmail!!.text.toString()
         val password = mPassword!!.text.toString()
         mAuth!!.signInWithEmailAndPassword(email, password).addOnCompleteListener(this@LoginActivity) { task: Task<AuthResult?> ->

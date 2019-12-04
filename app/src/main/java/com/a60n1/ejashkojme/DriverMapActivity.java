@@ -81,7 +81,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         LocationListener,
         GoogleApiClient.ConnectionCallbacks {
 
-    private static final String TAG = "DriverMapActivity";
+    private static final String TAG = "460N1_DEV_DriverMap";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private static final int PLAY_SERVICE_RES_REQUEST = 7001;
     private static int UPDATE_INTERVAL = 5000;
@@ -130,7 +130,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         mRiderAvatar = findViewById(R.id.driver_pickup_photo);
 
         if (name != null && thumb_image != null) {
-            mPickupName.setText("Pickup " + name);
+            mPickupName.setText("Pickup " + name); //getString not working... whyyy?
             if (!thumb_image.equals("default"))
                 Picasso.get().load(thumb_image).networkPolicy(NetworkPolicy.OFFLINE)
                         .placeholder(R.drawable.default_avatar).into(mRiderAvatar, new com.squareup.picasso.Callback() {
@@ -167,7 +167,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
             getDirection(destination);
         });
 
-        //geo Fire
+        //geofire init
         mDriversDatabase = FirebaseDatabase.getInstance().getReference("drivers");
         geoFire = new GeoFire(mDriversDatabase);
         setUpLocation();
@@ -202,7 +202,6 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
     public void hideKeyboard() {
         if (getCurrentFocus() != null) {
-            // hides the keyboard if applicable
             InputMethodManager inputManager = (InputMethodManager)
                     getSystemService(Context.INPUT_METHOD_SERVICE);
             Objects.requireNonNull(inputManager).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
@@ -223,7 +222,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                     "origin=" + currentPosition.latitude + "," + currentPosition.longitude + "&" +
                     "destination=" + destination + "&" +
                     "key=" + getResources().getString(R.string.google_maps_key);
-            Log.d(TAG, requestApi); //print URL for debugging
+            Log.d(TAG, requestApi); // url - per debugging veq
             Objects.requireNonNull(mService.getPath(requestApi))
                     .enqueue(new Callback<String>() {
                         @Override
@@ -239,7 +238,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                                     //noinspection unchecked
                                     polyLineList = decodePoly(polyline);
                                 }
-                                //Adjusting bounds
+                                //pergaditje per mbushje te map
                                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                                 for (LatLng latLng : polyLineList)
                                     builder.include(latLng);
@@ -269,7 +268,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                                         .position(polyLineList.get(polyLineList.size() - 1))
                                         .title("Pickup Here"));
 
-                                //Animation
+                                // pak animacione
                                 ValueAnimator polyLineAnimator = ValueAnimator.ofInt(0, 100);
                                 polyLineAnimator.setDuration(2000);
                                 polyLineAnimator.setInterpolator(new LinearInterpolator());
@@ -307,7 +306,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
-    private List decodePoly(String encoded) {
+    private List decodePoly(String encoded) { // copy-pasted prej online
 
         List poly = new ArrayList();
         int index = 0, len = encoded.length();
@@ -392,14 +391,14 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         if (mLastLocation != null) {
             final double latitude = mLastLocation.getLatitude();
             final double longitude = mLastLocation.getLongitude();
-            //Update to Firebase
+            // update firebase
             geoFire.setLocation(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(), new GeoLocation(latitude, longitude), (key, error) -> {
                 if (mCurrent != null)
                     mCurrent.remove();
                 mCurrent = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(latitude, longitude))
                         .title("Your Location"));
-                //Move camera to this position
+                // leviz kameren te lokacioni
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15.0f));
 
             });
@@ -443,8 +442,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED)
             mMap.setMyLocationEnabled(true);
-        // Show rationale and request permission.
-
+        // kerkese per permissions nese tashme nuk e kemi
     }
 
     @Override
@@ -464,7 +462,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,
                 Manifest.permission.ACCESS_FINE_LOCATION))
-            // Enable the my location layer if the permission has been granted.
+            // fillo perdorim te lok. nese kemi perm.
             enableMyLocation();
     }
 

@@ -28,8 +28,7 @@ class Post {
     var stars: Map<String, Boolean> = HashMap()
 
     @Suppress("unused")
-    constructor() { // Default constructor required for calls to DataSnapshot.getValue(Post.class)
-    }
+    constructor()
 
     constructor(uid: String?, author: String?, title: String?, body: String?, date: String?, time: String?, origin: String?, destination: String?) {
         this.uid = uid

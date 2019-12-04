@@ -59,13 +59,13 @@ public abstract class PostListFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Set up Layout Manager, reverse layout
+        // setup i layouts
         mManager = new LinearLayoutManager(getActivity());
         mManager.setReverseLayout(true);
         mManager.setStackFromEnd(true);
         mRecycler.setLayoutManager(mManager);
 
-        // Set up FirebaseRecyclerAdapter with the Query
+        // firebase eshte ready
         Query postsQuery = getQuery(mDatabase);
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Post>()
@@ -85,7 +85,7 @@ public abstract class PostListFragment extends BaseFragment {
             protected void onBindViewHolder(@NonNull final PostViewHolder viewHolder, int position, @NonNull final Post model) {
                 final DatabaseReference postRef = getRef(position);
 
-                // Set click listener for the whole post view
+                // onclick per postimin
                 final String postKey = postRef.getKey();
                 viewHolder.itemView.setOnClickListener(v -> Objects.requireNonNull(mainActivity).onViewPostBtnClicked(postKey));
                 viewHolder.authorView.setOnClickListener(v -> {
@@ -102,19 +102,19 @@ public abstract class PostListFragment extends BaseFragment {
                     popup.show();
                 });
 
-                // Determine if the current user has liked this post and set UI accordingly
+                // useri e ka ba like apo jo
                 if (model.stars.containsKey(getUid()))
                     viewHolder.starView.setImageResource(R.drawable.baseline_star_24);
                 else
                     viewHolder.starView.setImageResource(R.drawable.baseline_star_border_24);
 
-                // Bind Post to ViewHolder, setting OnClickListener for the star button
+                // binding post me viewholder, setonclick per like
                 viewHolder.bindToPost(model, starView -> {
-                    // Need to write to both places the post is stored
+                    // postimi ruhet edhe te te gjitha postimet, edhe te posts te userit
                     DatabaseReference globalPostRef = mDatabase.child("posts").child(Objects.requireNonNull(postRef.getKey()));
                     DatabaseReference userPostRef = mDatabase.child("user-posts").child(Objects.requireNonNull(model.uid)).child(postRef.getKey());
 
-                    // Run two transactions
+                    // percaktimi i funksioneve per on starclicked
                     onStarClicked(globalPostRef);
                     onStarClicked(userPostRef);
                 });
@@ -133,16 +133,16 @@ public abstract class PostListFragment extends BaseFragment {
                     return Transaction.success(mutableData);
 
                 if (p.stars.containsKey(getUid())) {
-                    // Unstar the post and remove self from stars
+                    // unlike
                     p.starCount = p.starCount - 1;
                     p.stars.remove(getUid());
                 } else {
-                    // Star the post and add self to stars
+                    // like
                     p.starCount = p.starCount + 1;
                     p.stars.put(getUid(), true);
                 }
 
-                // Set value and report transaction success
+                // cakto vleren per likes
                 mutableData.setValue(p);
                 return Transaction.success(mutableData);
             }

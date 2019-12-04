@@ -41,11 +41,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         Message message = mMessageList.get(position);
 
         if (Objects.requireNonNull(message.from).equals(mUid))
-            // If the current user is the sender of the message
-            return VIEW_TYPE_MESSAGE_SENT;
+            return VIEW_TYPE_MESSAGE_SENT; // per sending
         else
-            // If some other user sent the message
-            return VIEW_TYPE_MESSAGE_RECEIVED;
+            return VIEW_TYPE_MESSAGE_RECEIVED; // per receiving
     }
 
     @SuppressWarnings("NullableProblems")

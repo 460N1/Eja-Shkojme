@@ -31,7 +31,7 @@ open class BaseActivity : AppCompatActivity() {
         get() = FirebaseAuth.getInstance().currentUser!!.uid
 
     fun hideKeyboard() {
-        if (currentFocus != null) { // hides the keyboard if applicable
+        if (currentFocus != null) { // mshef keyboard kur na duhet
             val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             Objects.requireNonNull(inputManager).hideSoftInputFromWindow(currentFocus!!.windowToken,
                     InputMethodManager.HIDE_NOT_ALWAYS)

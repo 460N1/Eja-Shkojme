@@ -23,7 +23,7 @@ class ChatFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
-        // Create the adapter that will return a fragment for each section
+        // adapteri qe do ben return per qdo fragment
         mPagerAdapter = object : FragmentStatePagerAdapter(fragmentManager!!) {
             private val mFragments = arrayOf<Fragment>(
                     ConversationFragment(),
@@ -49,7 +49,7 @@ class ChatFragment : BaseFragment() {
                 return PagerAdapter.POSITION_NONE
             }
         }
-        // Set up the ViewPager with the sections adapter.
+        // Krijimi i viewpager dhe nderlidhja e tij me adapter
         mViewPager = view.findViewById(R.id.chat_container)
         mViewPager!!.adapter = mPagerAdapter
         val tabLayout: TabLayout = view.findViewById(R.id.chat_tabs)

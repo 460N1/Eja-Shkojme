@@ -64,14 +64,14 @@ class SettingsActivity : BaseActivity() {
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(Intent.createChooser(intent, "Select image"), SELECT_IMAGE)
         }
-        // get user info from firebase
+        // get user - firebase
         mUserDatabase!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) { // Get user value
                 val user = dataSnapshot.getValue(User::class.java)
                 if (user == null) { // User is null, error out
                     Log.e(TAG, "User $userId is unexpectedly null")
                     Toast.makeText(this@SettingsActivity,
-                            "Error: could not fetch user.",
+                            getString(R.string.error_nouser),
                             Toast.LENGTH_SHORT).show()
                 } else {
                     mName!!.text = user.name
@@ -158,6 +158,7 @@ class SettingsActivity : BaseActivity() {
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
+                Log.v(TAG, "Error in cropping: ${error.message!!}")
             }
         }
     }

@@ -43,9 +43,6 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
-/**
- * Fragment to hold post details
- */
 class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, OnMyLocationButtonClickListener, OnMyLocationClickListener, OnRequestPermissionsResultCallback, OnMapReadyCallback {
     private var mGoogleApiClient: GoogleApiClient? = null
     private var startPosition: LatLng? = null
@@ -88,15 +85,15 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
         val mapFragment = this.childFragmentManager
                 .findFragmentById(R.id.mini_map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
-        // Get post key from arguments
+        // marrja e postkey
         mPostKey = arguments!!.getString(EXTRA_POST_KEY)
         requireNotNull(mPostKey) { "Must pass EXTRA_POST_KEY" }
-        // Initialize Database
+        // init databazen
         mPostDatabase = FirebaseDatabase.getInstance().reference
                 .child("posts").child(mPostKey!!)
         mCommentsDatabase = FirebaseDatabase.getInstance().reference
                 .child("post-comments").child(mPostKey!!)
-        // Initialize Views
+        // init views
         mAuthorAvatar = view.findViewById(R.id.post_author_photo)
         mAuthorView = view.findViewById(R.id.post_author)
         mTitleView = view.findViewById(R.id.post_title)
@@ -135,10 +132,10 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
 
     override fun onStart() {
         super.onStart()
-        // Add value event listener to the post
+        // krijimi i listener per postime
         val postListener: ValueEventListener = object : ValueEventListener {
             @SuppressLint("SetTextI18n")
-            override fun onDataChange(dataSnapshot: DataSnapshot) { // Get Post object and use the values to update the UI
+            override fun onDataChange(dataSnapshot: DataSnapshot) { // marrja e objekteve, aplikimi i rregullave per ui
                 val post = dataSnapshot.getValue(Post::class.java)!!
                 mAuthorView!!.text = post.author
                 mTitleView!!.text = post.title
@@ -156,7 +153,7 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             val user = dataSnapshot.getValue(User::class.java) ?: return
                             val thumbImage = user.thumb_image
-                            if (thumbImage != "default") {
+                            if (thumbImage != "default")
                                 Picasso.get().load(thumbImage).networkPolicy(NetworkPolicy.OFFLINE)
                                         .placeholder(R.drawable.default_avatar).into(mAuthorAvatar, object : Callback {
                                             override fun onSuccess() {}
@@ -164,9 +161,8 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
                                                 Picasso.get().load(thumbImage).placeholder(R.drawable.default_avatar).into(mAuthorAvatar)
                                             }
                                         })
-                            } else {
+                            else
                                 Picasso.get().load(thumbImage).placeholder(R.drawable.default_avatar).into(mAuthorAvatar)
-                            }
                         }
 
                         override fun onCancelled(databaseError: DatabaseError) {}
@@ -183,20 +179,19 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
             }
         }
         mPostDatabase!!.addValueEventListener(postListener)
-        // Keep copy of post listener so we can remove it when app stops
+        // ruajtja e listener qe te mund t'e ndalim kur app te ndalet
         mPostListener = postListener
-        // Listen for comments
+        // listening per komente
         mAdapter = CommentAdapter(activity!!, mCommentsDatabase!!)
         mCommentsRecycler!!.adapter = mAdapter
     }
 
     override fun onStop() {
         super.onStop()
-        // Remove post value event listener
-        if (mPostListener != null) {
+        // largimi i listener
+        if (mPostListener != null)
             mPostDatabase!!.removeEventListener(mPostListener!!)
-        }
-        // Clean up comments listener
+        // pastrim i adapterit
         mAdapter!!.cleanupListener()
     }
 
@@ -207,9 +202,8 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
                     override fun onDataChange(dataSnapshot: DataSnapshot) { // Get user information
                         val user = dataSnapshot.getValue(User::class.java) ?: return
                         val authorName = user.name
-                        if (!validateComment()) {
+                        if (!validateComment())
                             return
-                        }
                         // Create new comment object
                         val commentText = mCommentField!!.text.toString()
                         val comment = Comment(uid, authorName, commentText)
@@ -229,26 +223,23 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
             mLayoutCommentField!!.error = getString(R.string.err_msg_post_detail)
             requestFocus(mCommentField)
             return false
-        } else {
+        } else
             mLayoutCommentField!!.isErrorEnabled = false
-        }
         return true
     }
 
     private fun requestFocus(view: View?) {
-        if (view!!.requestFocus()) {
+        if (view!!.requestFocus())
             activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-        }
     }
 
     override fun onMapReady(map: GoogleMap) {
         mMap = map
-        //get the lat and lng of the position
+        //lat, long e pozites
         mPostDatabase = FirebaseDatabase.getInstance().reference
                 .child("posts").child(mPostKey!!)
         mPostDatabase!!.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) { // This method is called once with the initial value and again
-// whenever data at this location is updated.
+            override fun onDataChange(dataSnapshot: DataSnapshot) { // funksioni kryesor per shfaqje te lok.
                 val post = dataSnapshot.getValue(Post::class.java)!!
                 start = post.origin
                 end = post.destination
@@ -280,7 +271,7 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) { // Failed to read value
+            override fun onCancelled(error: DatabaseError) { // deshtim i qfaredoshem
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
@@ -289,36 +280,30 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
         enableMyLocation()
     }
 
-    //=============================================
+    //============================================= // MARRJA E PERMISSIONS
     private fun enableMyLocation() {
         if (ContextCompat.checkSelfPermission(activity!!.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED)
             mMap!!.isMyLocationEnabled = true
-        } else {
+        else
             showMissingPermissionError()
-        }
     }
 
-    override fun onMyLocationButtonClick(): Boolean { //        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-// Return false so that we don't consume the event and the default behavior still occurs
-// (the camera animates to the user's current position).
+    override fun onMyLocationButtonClick(): Boolean {
         return false
     }
 
-    override fun onMyLocationClick(location: Location) { //        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
-    }
+    override fun onMyLocationClick(location: Location) {}
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
                                             grantResults: IntArray) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE)
             return
-        }
         if (isPermissionGranted(permissions, grantResults,
-                        Manifest.permission.ACCESS_FINE_LOCATION)) { // Enable the my location layer if the permission has been granted.
+                        Manifest.permission.ACCESS_FINE_LOCATION)) // qasje ne lokacion nese eshte dhene leja
             enableMyLocation()
-        } else { // Display the missing permission error dialog when the fragments resume.
-            mPermissionDenied = true
-        }
+        else
+            mPermissionDenied = true // pergaditje per showMissingPermissionError
     }
 
     /**
@@ -331,16 +316,15 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
     override fun onConnected(bundle: Bundle?) {}
     override fun onConnectionSuspended(i: Int) {}
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        Log.v(LOG_TAG, connectionResult.toString())
+        Log.v(TAG, connectionResult.toString())
     }
 
     private inner class MyTextWatcher(private val view: View) : TextWatcher {
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
         override fun afterTextChanged(editable: Editable) {
-            if (view.id == R.id.field_comment_text) {
+            if (view.id == R.id.field_comment_text)
                 validateComment()
-            }
         }
 
     }
@@ -349,7 +333,6 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
         private const val EXTRA_POST_KEY = "post_key"
         private const val TAG = "460N1_DEV_PostDetail"
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        private const val LOG_TAG = "PostDetailFragment"
         private var start: String? = null
         private var end: String? = null
         fun newInstance(post_key: String?): PostDetailFragment {

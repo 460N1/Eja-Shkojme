@@ -12,9 +12,6 @@ import com.a60n1.ejashkojme.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 
-/**
- * fragment to hold new post
- */
 class NewPostFragment : BaseFragment() {
     private var mTitleField: EditText? = null
     private var mBodyField: EditText? = null

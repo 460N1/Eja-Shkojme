@@ -4,9 +4,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Query
 
 class RecentPostsFragment : PostListFragment() {
-    override fun getQuery(databaseReference: DatabaseReference): Query { // Last 100 posts, these are automatically the 100 most recent
-// due to sorting by push() keys
+    override fun getQuery(databaseReference: DatabaseReference): Query { // shfaqja e 20 postimeve te fundit
         return databaseReference.child("posts")
-                .limitToFirst(100)
+                .limitToFirst(20)
     }
 }

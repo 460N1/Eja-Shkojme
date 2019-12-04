@@ -27,7 +27,7 @@ class ForumFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_forum, container, false)
-        // Create the adapter that will return a fragment for each section
+        // krijimi i adapterit qe do kthej view per qdo seksion
         mPagerAdapter = object : FragmentStatePagerAdapter(fragmentManager!!) {
             private val mFragments = arrayOf<Fragment>(
                     RecentPostsFragment(),
@@ -55,7 +55,7 @@ class ForumFragment : BaseFragment() {
                 return PagerAdapter.POSITION_NONE
             }
         }
-        // Set up the ViewPager with the sections adapter.
+        // viewpager, nderlidhje me adapter
         mViewPager = view.findViewById(R.id.forum_container)
         mViewPager?.adapter = mPagerAdapter
         val tabLayout: TabLayout = view.findViewById(R.id.forum_tabs)

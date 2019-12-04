@@ -15,6 +15,9 @@
  */
 package com.a60n1.ejashkojme.utils
 
+// COPYRIGHT: GOOGLE & AOSP
+// Nuk eshte prekur, vetem funksionet jane perdore
+
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.pm.PackageManager

@@ -69,7 +69,7 @@ class ProfileActivity : BaseActivity() {
                     mSendReqButton!!.isEnabled = false
                     mSendReqButton!!.visibility = View.INVISIBLE
                 }
-                // accept request
+                // pranim i req
                 mFriendReqDatabase!!.child(uid).addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if (dataSnapshot.hasChild(userId)) {
@@ -117,7 +117,7 @@ class ProfileActivity : BaseActivity() {
         })
         mSendReqButton!!.setOnClickListener {
             mSendReqButton!!.isEnabled = false
-            // not friend state
+            // not friend
             if (currentState == "not_friends") {
                 val notificationDatabase = mDatabase!!.child("notifications").child(userId).push()
                 val notificationId = notificationDatabase.key
@@ -128,7 +128,7 @@ class ProfileActivity : BaseActivity() {
                 requestMap["notifications/$userId/$notificationId"] = notification
                 mDatabase!!.updateChildren(requestMap) { databaseError: DatabaseError?, _: DatabaseReference? ->
                     if (databaseError != null)
-                        Toast.makeText(this@ProfileActivity, "Error sending request", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProfileActivity, getString(R.string.error_send_friendreq), Toast.LENGTH_SHORT).show()
                     else {
                         currentState = "req_sent"
                         mSendReqButton!!.setText(R.string.cancel_req_text)

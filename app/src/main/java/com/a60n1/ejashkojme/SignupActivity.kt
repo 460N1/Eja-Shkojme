@@ -66,10 +66,6 @@ class SignupActivity : BaseActivity() {
             finish()
         }
     }
-
-    /**
-     * Validating form inputs
-     */
     private fun submitRegisterInfo() {
         if (!validateFirstName())
             return
@@ -86,11 +82,11 @@ class SignupActivity : BaseActivity() {
         mAuth!!.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this@SignupActivity) { task: Task<AuthResult?> ->
                     hideProgressDialog()
-                    //check register is successful
+                    // check nese sukses
                     if (!task.isSuccessful)
-                        Toast.makeText(this@SignupActivity, "Error signing up", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@SignupActivity, getString(R.string.error_signup), Toast.LENGTH_SHORT).show()
                     else {
-                        Toast.makeText(this@SignupActivity, "Successfully signed up", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@SignupActivity, getString(R.string.success_signup), Toast.LENGTH_SHORT).show()
                         val userId = uid
                         @Suppress("DEPRECATION") val deviceToken = FirebaseInstanceId.getInstance().token
                         writeNewUser(userId, name, email, deviceToken)

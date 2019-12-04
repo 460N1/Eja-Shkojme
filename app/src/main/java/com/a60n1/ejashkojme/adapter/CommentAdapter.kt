@@ -91,13 +91,13 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
 
     init {
         mainActivity = mContext as MainActivity
-        // Create child event listener
+        // Krijojme ChildEventListener qe prej events
         val childEventListener: ChildEventListener = object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.key)
-                // A new comment has been added, add it to the displayed list
+                // Kur ndodh shtimi i komentit
                 val comment = dataSnapshot.getValue(Comment::class.java)!!
-                // Update RecyclerView
+                // Shtohet ne RecyclerView
                 mCommentIds.add(dataSnapshot.key)
                 mComments.add(comment)
                 notifyItemInserted(mComments.size - 1)
@@ -105,14 +105,14 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {
                 Log.d(TAG, "onChildChanged:" + dataSnapshot.key)
-                // A comment has changed, use the key to determine if we are displaying this
-// comment and if so displayed the changed comment.
+                // Koment ka ndryshu
+                // per te ne ardhmen kur edit comment shtohet si feature
                 val newComment = dataSnapshot.getValue(Comment::class.java)!!
                 val commentKey = dataSnapshot.key
                 val commentIndex = mCommentIds.indexOf(commentKey)
-                if (commentIndex > -1) { // Replace with the new data
+                if (commentIndex > -1) { // zevendesimi
                     mComments[commentIndex] = newComment
-                    // Update the RecyclerView
+                    // update UI
                     notifyItemChanged(commentIndex)
                 } else
                     Log.w(TAG, "onChildChanged:unknown_child:$commentKey")
@@ -120,14 +120,14 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
 
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + dataSnapshot.key)
-                // A comment has changed, use the key to determine if we are displaying this
-// comment and if so remove it.
+                // Largimi i komenteve
+                // per ne te ardhmen kur delete comment shtohet si feature
                 val commentKey = dataSnapshot.key
                 val commentIndex = mCommentIds.indexOf(commentKey)
-                if (commentIndex > -1) { // Remove data from the list
+                if (commentIndex > -1) { // largimi prej listes tkomenteve
                     mCommentIds.removeAt(commentIndex)
                     mComments.removeAt(commentIndex)
-                    // Update the RecyclerView
+                    // update UI
                     notifyItemRemoved(commentIndex)
                 } else
                     Log.w(TAG, "onChildRemoved:unknown_child:$commentKey")
@@ -136,20 +136,21 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
             @Suppress("UNUSED_VARIABLE")
             override fun onChildMoved(dataSnapshot: DataSnapshot, previousChildName: String?) {
                 Log.d(TAG, "onChildMoved:" + dataSnapshot.key)
-                // A comment has changed position, use the key to determine if we are
-                // displaying this comment and if so move it.
+                // Funksion i nevojshem
+                // nuk perdoret, vetem template
                 val movedComment = dataSnapshot.getValue(Comment::class.java)!!
                 val commentKey = dataSnapshot.key
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.w(TAG, "postComments:onCancelled", databaseError.toException())
+                // deshtim i leximit per qfaredo arsye
                 Toast.makeText(mContext, "Failed to load comments.",
                         Toast.LENGTH_SHORT).show()
             }
         }
         mDatabaseReference.addChildEventListener(childEventListener)
-        // Store reference to listener so it can be removed on app stop
+        // shtimi ne reference qe te ndalet kur aplikacioni te ndalet
         mChildEventListener = childEventListener
     }
 }

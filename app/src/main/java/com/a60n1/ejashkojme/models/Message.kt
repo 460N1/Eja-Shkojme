@@ -14,8 +14,7 @@ class Message {
     private var seen = false
 
     @Suppress("unused")
-    constructor() { // Default constructor required for calls to DataSnapshot.getValue(Message.class)
-    }
+    constructor()
 
     @Suppress("unused")
     constructor(message: String?, from: String?, type: String?, timestamp: Long, seen: Boolean) {

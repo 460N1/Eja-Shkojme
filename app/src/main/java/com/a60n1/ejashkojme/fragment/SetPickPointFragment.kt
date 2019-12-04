@@ -51,23 +51,21 @@ class SetPickPointFragment : BaseFragment() {
         }
         val origin = mSearchOriginText!!.text.toString()
         val destination = mSearchDestinationText!!.text.toString()
-        // Disable button so there are no multi-posts
+        // bllokim i butonave qe te anashkalohet multipost
         setEditingEnabled(false)
         Toast.makeText(activity, "Posting...", Toast.LENGTH_SHORT).show()
         val userId = uid
         mDatabase!!.child("users").child(userId).addListenerForSingleValueEvent(
                 object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) { // Get user value
+                    override fun onDataChange(dataSnapshot: DataSnapshot) { // percaktimi i postuesit
                         val user = dataSnapshot.getValue(User::class.java)
-                        if (user == null) { // User is null, error out
+                        if (user == null) { // ne rast se user nuk ekziston
                             Log.e(TAG, "User $userId is unexpectedly null")
                             Toast.makeText(activity,
                                     "Error: could not fetch user.",
                                     Toast.LENGTH_SHORT).show()
-                        } else { // Write new post
+                        } else // validimi kalon => krijo postim
                             writeNewPost(userId, user.name, mainActivity!!.currentTitle, mainActivity!!.currentBody, mainActivity!!.currentDate, mainActivity!!.currentTime, origin, destination)
-                        }
-                        // Finish this Activity, back to the stream
                         setEditingEnabled(true)
                         mainActivity!!.onSubmitPostBtnClicked()
                     }
@@ -83,11 +81,10 @@ class SetPickPointFragment : BaseFragment() {
     private fun setEditingEnabled(enabled: Boolean) {
         mSearchOriginText!!.isEnabled = enabled
         mSearchDestinationText!!.isEnabled = enabled
-        if (enabled) {
+        if (enabled)
             mSubmitButton!!.visibility = View.VISIBLE
-        } else {
+        else
             mSubmitButton!!.visibility = View.GONE
-        }
     }
 
     private fun writeNewPost(userId: String, author: String?, title: String, body: String, date: String, time: String, origin: String, destination: String) {
@@ -105,9 +102,8 @@ class SetPickPointFragment : BaseFragment() {
         if (origin.isEmpty()) {
             mLayoutOrigin!!.error = getString(R.string.err_msg_origin)
             return false
-        } else {
+        } else
             mLayoutOrigin!!.isErrorEnabled = false
-        }
         return true
     }
 
@@ -116,9 +112,8 @@ class SetPickPointFragment : BaseFragment() {
         if (destination.isEmpty()) {
             mLayoutDestination!!.error = getString(R.string.err_msg_destination)
             return false
-        } else {
+        } else
             mLayoutDestination!!.isErrorEnabled = false
-        }
         return true
     }
 

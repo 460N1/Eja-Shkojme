@@ -12,8 +12,7 @@ class Comment {
     var text: String? = null
 
     @Suppress("unused")
-    constructor() { // Default constructor required for calls to DataSnapshot.getValue(Comment.class)
-    }
+    constructor()
 
     constructor(uid: String?, author: String?, text: String?) {
         this.uid = uid

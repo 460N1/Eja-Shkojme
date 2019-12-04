@@ -69,4 +69,14 @@
     <string name="title_forum">Forumi</string>
     <string name="unfriend_text">Nderprej shoqerine</string>
     <string name="account_status">Statusi i Profilit</string>
+    <string name="success_signup">Regjistrimi me sukses</string>
+    <string name="title_ride" translatable="false">Vozitje</string>
+    <string name="saving">Duke ruajtur…</string>
+    <string name="new_post">Postim i ri</string>
+    <string name="map_ready">Map eshte gati</string>
+    <string name="forum">Forumi</string>
+    <string name="error_signup">Deshtim ne regjistrim</string>
+    <string name="error_send_friendreq">Deshtim ne dergim te fteses</string>
+    <string name="error_nouser">User nuk u njoh</string>
+    <string name="chat">Biseda</string>
 </resources>

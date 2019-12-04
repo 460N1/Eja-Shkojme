@@ -9,7 +9,7 @@
     <string name="title_activity_map">Map</string>
     <string name="title_forum">Forum</string>
     <string name="title_chat">Chat</string>
-    <string name="title_ride" translatable="false">Ride</string>
+    <string name="title_ride">Ride</string>
 
     <!--Login-->
     <string name="hint_email">Email Address</string>
@@ -98,6 +98,15 @@
     <string name="nav_header_title" translatable="false">Test user</string>
     <string name="nav_header_subtitle" translatable="false">testuser@gmail.com</string>
     <string name="lorem" translatable="false">Lorem ipsum dolor sit amet.</string>
+    <string name="saving">Saving changes…</string>
+    <string name="forum">Forum</string>
+    <string name="chat">Chat</string>
+    <string name="new_post">New Post</string>
+    <string name="map_ready">Map is Ready</string>
+    <string name="error_signup">Error signing up</string>
+    <string name="success_signup">Successfully signed up</string>
+    <string name="error_send_friendreq">Error sending request</string>
+    <string name="error_nouser">Error: could not fetch user.</string>
 
 
 </resources>

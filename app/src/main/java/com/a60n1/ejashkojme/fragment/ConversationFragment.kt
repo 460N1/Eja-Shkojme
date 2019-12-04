@@ -86,7 +86,7 @@ class ConversationFragment : BaseFragment() {
                             chatIntent.putExtra("user_name", name)
                             startActivity(chatIntent)
                         }
-                        if (thumbnail != "default") {
+                        if (thumbnail != "default")
                             Picasso.get().load(thumbnail).networkPolicy(NetworkPolicy.OFFLINE)
                                     .placeholder(R.drawable.default_avatar).into(holder.userAvatar, object : Callback {
                                         override fun onSuccess() {}
@@ -94,9 +94,8 @@ class ConversationFragment : BaseFragment() {
                                             Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar)
                                         }
                                     })
-                        } else {
+                        else
                             Picasso.get().load(thumbnail).placeholder(R.drawable.default_avatar).into(holder.userAvatar)
-                        }
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {}
@@ -113,15 +112,13 @@ class ConversationFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter?.startListening()
-        }
     }
 
     override fun onStop() {
         super.onStop()
-        if (mAdapter != null) {
+        if (mAdapter != null)
             mAdapter?.stopListening()
-        }
     }
 }
