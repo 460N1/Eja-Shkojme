@@ -13,8 +13,8 @@ class User {
     @JvmField
     var image: String? = null
     @JvmField
-    var thumb_image: String? = null
-    private var device_token: String? = null
+    var thumbImage: String? = null
+    private var deviceToken: String? = null
 
     constructor()
 
@@ -23,7 +23,7 @@ class User {
         this.email = email
         status = "Hi there, I'm using EjaShkojme."
         image = "default"
-        thumb_image = "default"
-        this.device_token = device_token
+        thumbImage = "default"
+        this.deviceToken = device_token
     }
 }

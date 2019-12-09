@@ -99,7 +99,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 } else {
                     mName!!.text = user.name
                     mEmail!!.text = user.email
-                    val thumbImage = user.thumb_image
+                    val thumbImage = user.thumbImage
                     if (thumbImage != "default")
                         Picasso.get().load(thumbImage).networkPolicy(NetworkPolicy.OFFLINE)
                                 .placeholder(R.drawable.default_avatar).into(mAvatar, object : Callback {

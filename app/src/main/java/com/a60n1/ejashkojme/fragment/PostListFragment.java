@@ -36,6 +36,7 @@ public abstract class PostListFragment extends BaseFragment {
 
     private FirebaseRecyclerAdapter<Post, PostViewHolder> mAdapter;
     private RecyclerView mRecycler;
+    @SuppressWarnings("FieldCanBeLocal")
     private LinearLayoutManager mManager;
 
     public PostListFragment() {
@@ -72,6 +73,7 @@ public abstract class PostListFragment extends BaseFragment {
                 .setQuery(postsQuery, Post.class)
                 .build();
 
+        //noinspection unchecked
         mAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
 
             @NonNull

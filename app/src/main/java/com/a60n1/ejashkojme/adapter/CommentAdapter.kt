@@ -58,7 +58,7 @@ class CommentAdapter(private val mContext: Context, private val mDatabaseReferen
         val userListener: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java) ?: return
-                val thumbImage = user.thumb_image
+                val thumbImage = user.thumbImage
                 if (thumbImage != "default")
                     Picasso.get().load(thumbImage).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.default_avatar).into(holder.authorAvatar, object : Callback {

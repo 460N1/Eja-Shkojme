@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.a60n1.ejashkojme.SignupActivity
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseApp
@@ -20,6 +19,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
+import java.util.*
 
 @Suppress("DEPRECATION")
 class LoginActivity : BaseActivity() {
@@ -31,12 +31,12 @@ class LoginActivity : BaseActivity() {
     private var mLayoutPassword: TextInputLayout? = null
     private var mAuth: FirebaseAuth? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-        //        val locale = Locale("sq")
-        //        Locale.setDefault(locale)
-        //        val config = baseContext.resources.configuration
-        //        config.locale = locale
-        //        baseContext.resources.updateConfiguration(config,
-        //                baseContext.resources.displayMetrics)
+        val locale = Locale("sq")
+        Locale.setDefault(locale)
+        val config = baseContext.resources.configuration
+        config.locale = locale
+        baseContext.resources.updateConfiguration(config,
+                baseContext.resources.displayMetrics)
         // hard-set gjuhen ne shqip pavarsisht prej device language
         // ^^^
         // language toggle duhet me u shtu

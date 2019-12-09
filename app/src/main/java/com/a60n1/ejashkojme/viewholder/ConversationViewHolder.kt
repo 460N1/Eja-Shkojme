@@ -14,7 +14,7 @@ class ConversationViewHolder(var mView: View) : RecyclerView.ViewHolder(mView) {
     @Suppress("JoinDeclarationAndAssignment")
     var statusView: TextView
     var nameView: TextView
-    var timestampView: TextView
+    private var timestampView: TextView
     var userAvatar: CircleImageView
     private val statusIcon: ImageView
     fun setMessage(message: Message, seen: Boolean) {

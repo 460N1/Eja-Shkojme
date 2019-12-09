@@ -152,7 +152,7 @@ class PostDetailFragment : BaseFragment(), GoogleApiClient.OnConnectionFailedLis
                     val userListener: ValueEventListener = object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             val user = dataSnapshot.getValue(User::class.java) ?: return
-                            val thumbImage = user.thumb_image
+                            val thumbImage = user.thumbImage
                             if (thumbImage != "default")
                                 Picasso.get().load(thumbImage).networkPolicy(NetworkPolicy.OFFLINE)
                                         .placeholder(R.drawable.default_avatar).into(mAuthorAvatar, object : Callback {

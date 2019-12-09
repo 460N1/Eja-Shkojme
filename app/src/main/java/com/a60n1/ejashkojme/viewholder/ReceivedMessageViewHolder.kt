@@ -29,7 +29,7 @@ class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         val userListener: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java) ?: return
-                val thumbnail = user.thumb_image
+                val thumbnail = user.thumbImage
                 if (thumbnail != "default")
                     Picasso.get().load(thumbnail).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.default_avatar).into(profileAvatar, object : Callback {

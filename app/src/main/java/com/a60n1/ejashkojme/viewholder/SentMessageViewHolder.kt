@@ -10,7 +10,7 @@ import com.a60n1.ejashkojme.utils.TimeUtils.formatDateTime
 class SentMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     @Suppress("JoinDeclarationAndAssignment")
     var messageText: TextView
-    var timeText: TextView
+    private var timeText: TextView
     fun bind(message: Message) {
         messageText.text = message.message
         timeText.text = formatDateTime(message.timestamp)
